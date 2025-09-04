@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production
+build/
+dist/
+out/
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+.DS_Store
+Thumbs.db
+
+# Application builds
+applications/*/dist/
+applications/*/node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# Next.js
+.next/
+
+# Vite
+*.local
+
+# Debug
+.debug/
+
+# TelemetryX
+.telemetryx/
+*.telemetryx-cache
+
+# Temporary files
+.tmp/
+temp/
+tmp/
+
+# Package manager
+.yarn/
+.pnpm-store/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

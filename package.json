@@ -1,0 +1,41 @@
+{
+  "name": "telemetryx-applications-library",
+  "version": "1.0.0",
+  "description": "Collection of independent TelemetryX applications",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "build:all": "node scripts/build-all-apps.js",
+    "app:placeholders": "node scripts/create-placeholder.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "chokidar": "^4.0.0",
+    "express": "^4.21.0",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TelemetryTV/telemetryx-applications-library.git"
+  },
+  "keywords": [
+    "telemetryx",
+    "digital-signage",
+    "kiosk",
+    "applications",
+    "react",
+    "typescript",
+    "sdk"
+  ],
+  "author": "TelemetryTV Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TelemetryTV/telemetryx-applications-library/issues"
+  },
+  "homepage": "https://github.com/TelemetryTV/telemetryx-applications-library#readme"
+}

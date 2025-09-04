@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TelemetryX Applications Development Harness</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .app-selector {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .app-selector label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .app-selector select {
+      padding: 0.5rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: white;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 200px;
+      transition: border-color 0.3s;
+    }
+
+    .app-selector select:hover {
+      border-color: #667eea;
+    }
+
+    .app-selector select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5a67d8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #555;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d0d0;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #f0f0f0;
+      border-radius: 20px;
+      font-size: 0.875rem;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    .status-indicator.error {
+      background: #ef4444;
+      animation: none;
+    }
+
+    .status-indicator.loading {
+      background: #f59e0b;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .preview-container {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .device-frame {
+      background: #000;
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      max-width: 1920px;
+      max-height: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .device-bezel {
+      background: #222;
+      border-radius: 10px;
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      z-index: 10;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error-message {
+      background: #fee;
+      border: 2px solid #f88;
+      color: #c00;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .device-info {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      z-index: 5;
+    }
+
+    .resolution-presets {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .preset-btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid #999;
+      color: #666;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .preset-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .preset-btn.active {
+      background: #667eea;
+      border-color: #667eea;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+      TelemetryX Dev Harness
+    </div>
+    
+    <div class="controls">
+      <div class="app-selector">
+        <label for="app-select">Application:</label>
+        <select id="app-select">
+          <option value="">Select an application...</option>
+        </select>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn btn-primary" id="load-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          Load
+        </button>
+        <button class="btn btn-secondary" id="reload-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6" />
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+          </svg>
+          Reload
+        </button>
+        <button class="btn btn-secondary" id="build-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="12" y1="18" x2="12" y2="12" />
+            <line x1="9" y1="15" x2="15" y2="15" />
+          </svg>
+          Build
+        </button>
+      </div>
+      
+      <div class="resolution-presets">
+        <span style="color: #666; font-size: 0.875rem;">Presets:</span>
+        <button class="preset-btn" data-width="1920" data-height="1080">1080p</button>
+        <button class="preset-btn" data-width="1280" data-height="720">720p</button>
+        <button class="preset-btn" data-width="3840" data-height="2160">4K</button>
+        <button class="preset-btn active" data-width="100%" data-height="100%">Fit</button>
+      </div>
+      
+      <div class="status">
+        <div class="status-indicator" id="status-indicator"></div>
+        <span id="status-text">Ready</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="preview-container">
+    <div class="device-frame" id="device-frame">
+      <div class="device-info" id="device-info" style="display: none;">
+        <span id="resolution-info">1920 × 1080</span>
+      </div>
+      <div class="device-bezel">
+        <iframe 
+          id="preview-iframe" 
+          class="preview-iframe"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+          style="display: none;"
+        ></iframe>
+        <div class="loading-overlay" id="loading-overlay" style="display: none;">
+          <div class="loading-spinner"></div>
+          Loading application...
+        </div>
+        <div class="error-message" id="error-message" style="display: none;">
+          <h2>Application Error</h2>
+          <p id="error-text"></p>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #666;" id="placeholder">
+          <div style="text-align: center;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+            <p style="margin-top: 1rem;">Select an application to preview</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const appSelect = document.getElementById('app-select');
+    const loadBtn = document.getElementById('load-btn');
+    const reloadBtn = document.getElementById('reload-btn');
+    const buildBtn = document.getElementById('build-btn');
+    const previewIframe = document.getElementById('preview-iframe');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const placeholder = document.getElementById('placeholder');
+    const statusIndicator = document.getElementById('status-indicator');
+    const statusText = document.getElementById('status-text');
+    const deviceFrame = document.getElementById('device-frame');
+    const deviceInfo = document.getElementById('device-info');
+    const resolutionInfo = document.getElementById('resolution-info');
+    
+    let currentApp = null;
+    let applications = [];
+
+    // WebSocket for hot reload
+    const ws = new WebSocket('ws://localhost:3001');
+    
+    ws.onopen = () => {
+      console.log('Connected to development server');
+      updateStatus('Connected', 'success');
+    };
+    
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === 'reload' && currentApp) {
+        console.log('Reloading due to file change:', message.path);
+        reloadApp();
+      }
+    };
+    
+    ws.onerror = () => {
+      updateStatus('Connection error', 'error');
+    };
+    
+    ws.onclose = () => {
+      updateStatus('Disconnected', 'error');
+    };
+
+    // Fetch available applications
+    async function fetchApplications() {
+      try {
+        const response = await fetch('/api/applications');
+        applications = await response.json();
+        
+        // Clear and populate select
+        appSelect.innerHTML = '<option value="">Select an application...</option>';
+        
+        applications.forEach(app => {
+          const option = document.createElement('option');
+          option.value = app.id;
+          option.textContent = `${app.name} ${app.version}`;
+          if (!app.hasDistFolder) {
+            option.textContent += ' (needs build)';
+            option.style.color = '#999';
+          }
+          appSelect.appendChild(option);
+        });
+        
+        updateStatus('Ready', 'success');
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+        updateStatus('Error loading apps', 'error');
+      }
+    }
+
+    // Load application
+    function loadApp() {
+      const selectedId = appSelect.value;
+      const app = applications.find(a => a.id === selectedId);
+      
+      if (!app) return;
+      
+      if (!app.hasDistFolder) {
+        if (confirm(`Application "${app.name}" needs to be built first. Build now?`)) {
+          buildApp(app);
+        }
+        return;
+      }
+      
+      currentApp = app;
+      placeholder.style.display = 'none';
+      errorMessage.style.display = 'none';
+      loadingOverlay.style.display = 'flex';
+      
+      // Load the app in iframe
+      previewIframe.src = `/apps/${app.id}/index.html`;
+      previewIframe.style.display = 'block';
+      
+      previewIframe.onload = () => {
+        loadingOverlay.style.display = 'none';
+        reloadBtn.disabled = false;
+        updateStatus(`Loaded: ${app.name}`, 'success');
+      };
+      
+      previewIframe.onerror = () => {
+        loadingOverlay.style.display = 'none';
+        showError(`Failed to load application: ${app.name}`);
+      };
+    }
+
+    // Reload current application
+    function reloadApp() {
+      if (!currentApp) return;
+      
+      loadingOverlay.style.display = 'flex';
+      previewIframe.src = '';
+      
+      setTimeout(() => {
+        previewIframe.src = `/apps/${currentApp.id}/index.html`;
+      }, 100);
+    }
+
+    // Build application
+    async function buildApp(app) {
+      try {
+        updateStatus(`Building ${app.name}...`, 'loading');
+        buildBtn.disabled = true;
+        
+        const response = await fetch(`/api/build/${app.id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          updateStatus(`Built ${app.name}`, 'success');
+          await fetchApplications(); // Refresh the list
+          appSelect.value = app.id; // Reselect the app
+          loadBtn.disabled = false;
+        } else {
+          const error = await response.json();
+          showError(`Build failed: ${error.error}`);
+        }
+      } catch (error) {
+        showError(`Build error: ${error.message}`);
+      } finally {
+        buildBtn.disabled = false;
+      }
+    }
+
+    // Show error message
+    function showError(message) {
+      errorText.textContent = message;
+      errorMessage.style.display = 'block';
+      previewIframe.style.display = 'none';
+      loadingOverlay.style.display = 'none';
+      updateStatus('Error', 'error');
+    }
+
+    // Update status
+    function updateStatus(text, type) {
+      statusText.textContent = text;
+      statusIndicator.className = 'status-indicator';
+      
+      if (type === 'error') {
+        statusIndicator.classList.add('error');
+      } else if (type === 'loading') {
+        statusIndicator.classList.add('loading');
+      }
+    }
+
+    // Resolution presets
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const width = btn.dataset.width;
+        const height = btn.dataset.height;
+        
+        if (width === '100%') {
+          deviceFrame.style.maxWidth = '100%';
+          deviceFrame.style.maxHeight = '100%';
+          deviceInfo.style.display = 'none';
+        } else {
+          deviceFrame.style.maxWidth = width + 'px';
+          deviceFrame.style.maxHeight = height + 'px';
+          deviceInfo.style.display = 'block';
+          resolutionInfo.textContent = `${width} × ${height}`;
+        }
+      });
+    });
+
+    // Event listeners
+    appSelect.addEventListener('change', () => {
+      const selectedId = appSelect.value;
+      const app = applications.find(a => a.id === selectedId);
+      
+      if (app) {
+        loadBtn.disabled = false;
+        buildBtn.disabled = !app.hasDistFolder;
+      } else {
+        loadBtn.disabled = true;
+        buildBtn.disabled = true;
+      }
+    });
+
+    loadBtn.addEventListener('click', loadApp);
+    reloadBtn.addEventListener('click', reloadApp);
+    buildBtn.addEventListener('click', () => {
+      const selectedId = appSelect.value;
+      const app = applications.find(a => a.id === selectedId);
+      if (app) buildApp(app);
+    });
+
+    // Initialize
+    fetchApplications();
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+.weather-app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.city {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.temperature {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  margin: 1rem 0;
+  line-height: 1;
+}
+
+.condition {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  margin: 1rem 0 2rem 0;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.details > div {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  border-radius: 10px;
+}
+
+.configure-message,
+.loading,
+.error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.configure-message h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.configure-message p {
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.error h2 {
+  margin-bottom: 1rem;
+}
+
+.error-hint {
+  opacity: 0.7;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.error-banner {
+  background: rgba(239, 68, 68, 0.9);
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+}

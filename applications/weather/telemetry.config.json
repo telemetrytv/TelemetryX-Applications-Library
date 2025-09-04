@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "displayName": "Weather Display",
   "description": "Shows current weather conditions and forecasts for selected locations",
-  
   "mountPoints": {
     "render": {
-      "path": "/render.html"
+      "path": "/index.html"
     },
     "settings": {
       "path": "/settings.html"

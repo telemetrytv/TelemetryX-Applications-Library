@@ -13,74 +13,80 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #1a1a1a;
       height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     .header {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(30, 30, 30, 0.95);
       backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
       gap: 2rem;
       flex-shrink: 0;
+      border-bottom: 1px solid #333;
     }
 
     .logo {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      color: #333;
+      color: #fff;
     }
 
     .logo svg {
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
+      stroke: #667eea;
     }
 
     .controls {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       flex: 1;
     }
 
     .app-selector {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .app-selector label {
       font-weight: 500;
-      color: #555;
+      color: #ccc;
+      font-size: 0.9rem;
     }
 
     .app-selector select {
       padding: 0.5rem 1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      background: white;
-      font-size: 1rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #2a2a2a;
+      color: #fff;
+      font-size: 0.9rem;
       cursor: pointer;
-      min-width: 200px;
-      transition: border-color 0.3s;
+      min-width: 220px;
+      transition: all 0.3s;
     }
 
     .app-selector select:hover {
       border-color: #667eea;
+      background: #333;
     }
 
     .app-selector select:focus {
       outline: none;
       border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
     }
 
     .action-buttons {
@@ -89,40 +95,39 @@
     }
 
     .btn {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.875rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
+      background: #2a2a2a;
+      color: #ccc;
     }
 
     .btn-primary {
       background: #667eea;
       color: white;
+      border-color: #667eea;
     }
 
     .btn-primary:hover {
       background: #5a67d8;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    }
-
-    .btn-secondary {
-      background: #e0e0e0;
-      color: #555;
+      border-color: #5a67d8;
     }
 
     .btn-secondary:hover {
-      background: #d0d0d0;
+      background: #333;
+      border-color: #555;
+      color: #fff;
     }
 
     .btn:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
 
@@ -131,15 +136,17 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #f0f0f0;
-      border-radius: 20px;
-      font-size: 0.875rem;
+      padding: 0.4rem 0.8rem;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      color: #ccc;
     }
 
     .status-indicator {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: #10b981;
       animation: pulse 2s infinite;
@@ -163,68 +170,92 @@
       }
     }
 
-    .preview-container {
+    .main-container {
       flex: 1;
-      padding: 2rem;
       display: flex;
-      flex-direction: column;
       overflow: hidden;
     }
 
-    .device-frame {
-      background: #000;
-      border-radius: 20px;
-      padding: 10px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      flex: 1;
+    .render-container {
+      width: 75%;
       display: flex;
-      flex-direction: column;
-      position: relative;
-      max-width: 1920px;
-      max-height: 1080px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .device-bezel {
+      align-items: center;
+      justify-content: center;
       background: #222;
-      border-radius: 10px;
-      flex: 1;
-      display: flex;
       position: relative;
-      overflow: hidden;
     }
 
-    .preview-iframe {
+    .settings-container {
+      width: 25%;
+      background: #1a1a1a;
+      border-left: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .render-frame {
+      /* Container that maintains 16:9 aspect ratio and scales to fit available space */
       width: 100%;
-      height: 100%;
+      max-width: calc(100vh * 16 / 9);
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      position: relative;
+      margin: 20px;
+    }
+
+    .render-iframe {
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      border: none;
+      background: white;
+      border-radius: 4px;
+      position: absolute;
+      top: 8px;
+      left: 8px;
+    }
+
+    .settings-header {
+      padding: 1rem;
+      background: #2a2a2a;
+      border-bottom: 1px solid #333;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .settings-iframe {
+      flex: 1;
       border: none;
       background: white;
     }
 
     .loading-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.25rem;
+      font-size: 1rem;
       z-index: 10;
+      border-radius: 4px;
     }
 
     .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #667eea;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-right: 1rem;
+      margin-right: 0.75rem;
     }
 
     @keyframes spin {
@@ -234,55 +265,29 @@
     }
 
     .error-message {
-      background: #fee;
-      border: 2px solid #f88;
-      color: #c00;
-      padding: 2rem;
-      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 6px;
       text-align: center;
-      max-width: 600px;
-      margin: auto;
+      margin: 1rem;
     }
 
-    .device-info {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      z-index: 5;
-    }
-
-    .resolution-presets {
+    .placeholder {
       display: flex;
-      gap: 0.5rem;
       align-items: center;
-    }
-
-    .preset-btn {
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
-      background: transparent;
-      border: 1px solid #999;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
       color: #666;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
+      text-align: center;
     }
 
-    .preset-btn:hover {
-      border-color: #667eea;
-      color: #667eea;
+    .placeholder svg {
+      stroke: #444;
     }
 
-    .preset-btn.active {
-      background: #667eea;
-      border-color: #667eea;
-      color: white;
-    }
   </style>
 </head>
 <body>
@@ -305,21 +310,15 @@
       </div>
       
       <div class="action-buttons">
-        <button class="btn btn-primary" id="load-btn" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5 3 19 12 5 21 5 3" />
-          </svg>
-          Load
-        </button>
-        <button class="btn btn-secondary" id="reload-btn" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-primary" id="reload-btn" disabled>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M23 4v6h-6M1 20v-6h6" />
             <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
           </svg>
           Reload
         </button>
         <button class="btn btn-secondary" id="build-btn" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
             <polyline points="14 2 14 8 20 8" />
             <line x1="12" y1="18" x2="12" y2="12" />
@@ -329,14 +328,6 @@
         </button>
       </div>
       
-      <div class="resolution-presets">
-        <span style="color: #666; font-size: 0.875rem;">Presets:</span>
-        <button class="preset-btn" data-width="1920" data-height="1080">1080p</button>
-        <button class="preset-btn" data-width="1280" data-height="720">720p</button>
-        <button class="preset-btn" data-width="3840" data-height="2160">4K</button>
-        <button class="preset-btn active" data-width="100%" data-height="100%">Fit</button>
-      </div>
-      
       <div class="status">
         <div class="status-indicator" id="status-indicator"></div>
         <span id="status-text">Ready</span>
@@ -344,15 +335,13 @@
     </div>
   </div>
   
-  <div class="preview-container">
-    <div class="device-frame" id="device-frame">
-      <div class="device-info" id="device-info" style="display: none;">
-        <span id="resolution-info">1920 × 1080</span>
-      </div>
-      <div class="device-bezel">
+  <div class="main-container">
+    <!-- Render Application (3/4 width, 1080p aspect ratio) -->
+    <div class="render-container">
+      <div class="render-frame" id="render-frame">
         <iframe 
-          id="preview-iframe" 
-          class="preview-iframe"
+          id="render-iframe" 
+          class="render-iframe"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
           style="display: none;"
         ></iframe>
@@ -361,12 +350,12 @@
           Loading application...
         </div>
         <div class="error-message" id="error-message" style="display: none;">
-          <h2>Application Error</h2>
+          <h3>Application Error</h3>
           <p id="error-text"></p>
         </div>
-        <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: #666;" id="placeholder">
+        <div class="placeholder" id="placeholder">
           <div style="text-align: center;">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
               <rect x="2" y="3" width="20" height="14" rx="2" />
               <line x1="8" y1="21" x2="16" y2="21" />
               <line x1="12" y1="17" x2="12" y2="21" />
@@ -376,26 +365,51 @@
         </div>
       </div>
     </div>
+
+    <!-- Settings Panel (1/4 width, full height) -->
+    <div class="settings-container">
+      <div class="settings-header">
+        Application Settings
+      </div>
+      <iframe 
+        id="settings-iframe" 
+        class="settings-iframe"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+        style="display: none;"
+      ></iframe>
+      <div class="placeholder" id="settings-placeholder" style="flex: 1;">
+        <div style="text-align: center;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+          </svg>
+          <p style="margin-top: 0.75rem; font-size: 0.9rem;">Settings will appear here</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Include TelemetryX Harness -->
+  <script src="telemetryx-harness.js"></script>
 
   <script>
     const appSelect = document.getElementById('app-select');
-    const loadBtn = document.getElementById('load-btn');
     const reloadBtn = document.getElementById('reload-btn');
     const buildBtn = document.getElementById('build-btn');
-    const previewIframe = document.getElementById('preview-iframe');
+    const renderIframe = document.getElementById('render-iframe');
+    const settingsIframe = document.getElementById('settings-iframe');
     const loadingOverlay = document.getElementById('loading-overlay');
     const errorMessage = document.getElementById('error-message');
     const errorText = document.getElementById('error-text');
     const placeholder = document.getElementById('placeholder');
+    const settingsPlaceholder = document.getElementById('settings-placeholder');
     const statusIndicator = document.getElementById('status-indicator');
     const statusText = document.getElementById('status-text');
-    const deviceFrame = document.getElementById('device-frame');
-    const deviceInfo = document.getElementById('device-info');
-    const resolutionInfo = document.getElementById('resolution-info');
     
     let currentApp = null;
     let applications = [];
+
+    // No manual scaling needed - CSS handles responsive sizing with aspect-ratio
 
     // WebSocket for hot reload
     const ws = new WebSocket('ws://localhost:3001');
@@ -436,10 +450,21 @@
           option.textContent = `${app.name} ${app.version}`;
           if (!app.hasDistFolder) {
             option.textContent += ' (needs build)';
-            option.style.color = '#999';
+            option.style.color = '#666';
           }
           appSelect.appendChild(option);
         });
+        
+        // Auto-load the first application if available
+        if (applications.length > 0) {
+          const firstApp = applications.find(app => app.hasDistFolder) || applications[0];
+          if (firstApp) {
+            appSelect.value = firstApp.id;
+            loadApp();
+          }
+        }
+        
+        // Applications loaded successfully
         
         updateStatus('Ready', 'success');
       } catch (error) {
@@ -464,22 +489,57 @@
       
       currentApp = app;
       placeholder.style.display = 'none';
+      settingsPlaceholder.style.display = 'none';
       errorMessage.style.display = 'none';
       loadingOverlay.style.display = 'flex';
       
-      // Load the app in iframe
-      previewIframe.src = `/apps/${app.id}/index.html`;
-      previewIframe.style.display = 'block';
+      let renderLoaded = false;
+      let settingsLoaded = false;
       
-      previewIframe.onload = () => {
-        loadingOverlay.style.display = 'none';
-        reloadBtn.disabled = false;
-        updateStatus(`Loaded: ${app.name}`, 'success');
+      function checkBothLoaded() {
+        if (renderLoaded && settingsLoaded) {
+          loadingOverlay.style.display = 'none';
+          reloadBtn.disabled = false;
+          updateStatus(`Loaded: ${app.name}`, 'success');
+          
+          // Application loaded successfully
+        }
+      }
+      
+      // Load the render iframe
+      renderIframe.src = `/apps/${app.id}/index.html`;
+      renderIframe.style.display = 'block';
+      
+      renderIframe.onload = () => {
+        renderLoaded = true;
+        checkBothLoaded();
+        
+        // Set up TelemetryX harness communication with the render iframe
+        if (window.telemetryxHarness) {
+          window.telemetryxHarness.setIframe(renderIframe);
+          console.log('🔗 TelemetryX harness connected to render iframe');
+        }
       };
       
-      previewIframe.onerror = () => {
+      renderIframe.onerror = () => {
         loadingOverlay.style.display = 'none';
-        showError(`Failed to load application: ${app.name}`);
+        showError(`Failed to load render view: ${app.name}`);
+      };
+      
+      // Load the settings iframe
+      settingsIframe.src = `/apps/${app.id}/settings.html`;
+      settingsIframe.style.display = 'block';
+      
+      settingsIframe.onload = () => {
+        settingsLoaded = true;
+        checkBothLoaded();
+        console.log('📝 Settings iframe loaded');
+      };
+      
+      settingsIframe.onerror = () => {
+        console.warn(`Settings not available for ${app.name}`);
+        settingsLoaded = true; // Don't block loading if settings fail
+        checkBothLoaded();
       };
     }
 
@@ -488,10 +548,11 @@
       if (!currentApp) return;
       
       loadingOverlay.style.display = 'flex';
-      previewIframe.src = '';
+      renderIframe.src = '';
+      settingsIframe.src = '';
       
       setTimeout(() => {
-        previewIframe.src = `/apps/${currentApp.id}/index.html`;
+        loadApp();
       }, 100);
     }
 
@@ -512,7 +573,7 @@
           updateStatus(`Built ${app.name}`, 'success');
           await fetchApplications(); // Refresh the list
           appSelect.value = app.id; // Reselect the app
-          loadBtn.disabled = false;
+          loadApp(); // Auto-load after successful build
         } else {
           const error = await response.json();
           showError(`Build failed: ${error.error}`);
@@ -528,7 +589,8 @@
     function showError(message) {
       errorText.textContent = message;
       errorMessage.style.display = 'block';
-      previewIframe.style.display = 'none';
+      renderIframe.style.display = 'none';
+      settingsIframe.style.display = 'none';
       loadingOverlay.style.display = 'none';
       updateStatus('Error', 'error');
     }
@@ -545,43 +607,25 @@
       }
     }
 
-    // Resolution presets
-    document.querySelectorAll('.preset-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const width = btn.dataset.width;
-        const height = btn.dataset.height;
-        
-        if (width === '100%') {
-          deviceFrame.style.maxWidth = '100%';
-          deviceFrame.style.maxHeight = '100%';
-          deviceInfo.style.display = 'none';
-        } else {
-          deviceFrame.style.maxWidth = width + 'px';
-          deviceFrame.style.maxHeight = height + 'px';
-          deviceInfo.style.display = 'block';
-          resolutionInfo.textContent = `${width} × ${height}`;
-        }
-      });
-    });
-
     // Event listeners
     appSelect.addEventListener('change', () => {
       const selectedId = appSelect.value;
       const app = applications.find(a => a.id === selectedId);
       
       if (app) {
-        loadBtn.disabled = false;
         buildBtn.disabled = !app.hasDistFolder;
+        loadApp(); // Auto-load when selection changes
       } else {
-        loadBtn.disabled = true;
         buildBtn.disabled = true;
+        // Show placeholders when no app selected
+        placeholder.style.display = 'flex';
+        settingsPlaceholder.style.display = 'flex';
+        renderIframe.style.display = 'none';
+        settingsIframe.style.display = 'none';
+        currentApp = null;
       }
     });
 
-    loadBtn.addEventListener('click', loadApp);
     reloadBtn.addEventListener('click', reloadApp);
     buildBtn.addEventListener('click', () => {
       const selectedId = appSelect.value;

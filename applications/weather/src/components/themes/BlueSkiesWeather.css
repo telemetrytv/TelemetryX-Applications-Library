@@ -1,0 +1,625 @@
+/* Blue Skies Weather Theme - Ported from legacy Stylus */
+
+.blueskies-weather-item {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.resize-sensor {
+  position: absolute !important;
+  z-index: -1;
+  visibility: hidden;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.item-wrapper {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.7);
+  padding: 6em 8em;
+  overflow: hidden;
+
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+.background-gradient {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  opacity: 0.7;
+  transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+}
+
+/* Top zone with location and time */
+.top-zone {
+  position: relative;
+}
+
+.location .city {
+  font-size: 6em;
+  padding-bottom: 0.2em;
+}
+
+.time-n-date {
+}
+
+.current-date {
+  min-height: 1em;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  font-size: 3em;
+}
+
+.date {
+  padding-right: 0.8em;
+  font-weight: 300;
+}
+
+.simple-clock {
+  font-size: inherit;
+  align-items: flex-start;
+}
+
+.simple-clock .time-wrapper {
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.simple-clock .apm {
+  font-weight: 300;
+}
+
+/* Main zone with current weather */
+.main-zone {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.forecast {
+  min-width: 25em;
+  box-sizing: border-box;
+}
+
+.current-and-recent {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+/* Current weather section */
+.current {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-icon {
+  display: inline-block;
+  font-size: 21em;
+}
+
+.icon-n-temp {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.icon-n-temp.smaller-size .weather-icon {
+  font-size: 18em;
+}
+
+.icon-n-temp.smaller-size .temp {
+  font-size: 14em;
+}
+
+.meta * {
+  line-height: 100%;
+}
+
+.meta {
+  margin-left: 5em;
+}
+
+.current-condition {
+  font-size: 5em;
+  text-transform: capitalize;
+  overflow: hidden;
+}
+
+.current-condition .inner {
+  line-height: 130%;
+}
+
+.atmosphere {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 2.2em 0 0 0.15em;
+}
+
+.atmosphere .item {
+  position: relative;
+  overflow: hidden;
+  margin-left: 3em;
+  white-space: nowrap;
+}
+
+.atmosphere .item:first-of-type {
+  margin-left: 0;
+}
+
+.atmosphere .label-text {
+  text-transform: uppercase;
+  font-size: 1.8em;
+  opacity: 0.7;
+  padding-bottom: 0.5em;
+}
+
+.atmosphere .content {
+  font-size: 2.2em;
+  line-height: 130%;
+}
+
+.temp {
+  font-size: 16em;
+  margin-left: 0.15em;
+}
+
+/* Hourly forecast */
+.forecast-3hrs {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.forecast-3hrs .item {
+  flex: 1 1 0.000001px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.forecast-3hrs .inner {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.forecast-3hrs .hour {
+  font-size: 2em;
+  opacity: 0.7;
+}
+
+.forecast-3hrs .temp {
+  font-size: 2.8em;
+}
+
+.forecast-3hrs .weather-icon {
+  font-size: 4.5em;
+  margin: 0.25em 0;
+}
+
+/* Daily forecast */
+.forecast {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.forecast .day {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.forecast .inner {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.contexts {
+  flex: 1 1 0.00001px;
+}
+
+.dow {
+  font-size: 2em;
+  line-height: 110%;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 1em;
+  padding-top: 0.6em;
+}
+
+.dow span {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.1em 0.5em 0.18em 0.5em;
+  border-radius: 0.3em;
+}
+
+.temps {
+  font-size: 3em;
+}
+
+.forecast .weather-icon {
+  font-size: 6.5em;
+  margin-left: 0.5em;
+  line-height: 130%;
+}
+
+/* Layout variations */
+
+/* Landscape (not medium) */
+.blueskies-weather-item.landscape:not(.is-medium) .forecast {
+  margin-left: 8em;
+  padding-left: 4em;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Wide layout */
+.blueskies-weather-item.is-wide .item-wrapper {
+  padding: 2em 4em;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.blueskies-weather-item.is-wide .top-zone {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  margin-right: 10em;
+}
+
+.blueskies-weather-item.is-wide .location .city {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-wide .current-date {
+  font-size: 2em;
+}
+
+.blueskies-weather-item.is-wide .main-zone {
+  flex: none;
+}
+
+.blueskies-weather-item.is-wide .weather-icon {
+  font-size: 15em;
+}
+
+.blueskies-weather-item.is-wide .temp {
+  font-size: 14em;
+}
+
+.blueskies-weather-item.is-wide .icon-n-temp.smaller-size .weather-icon {
+  font-size: 12em;
+}
+
+.blueskies-weather-item.is-wide .icon-n-temp.smaller-size .temp {
+  font-size: 8em;
+}
+
+.blueskies-weather-item.is-wide .meta {
+  margin-left: 10em;
+}
+
+.blueskies-weather-item.is-wide .current-condition {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-wide .atmosphere {
+  padding: 1.6em 0 0 0.15em;
+}
+
+.blueskies-weather-item.is-wide .atmosphere .item {
+  margin-left: 4em;
+}
+
+.blueskies-weather-item.is-wide .atmosphere .item:first-of-type {
+  margin-left: 0;
+}
+
+/* Medium and Portrait layouts */
+.blueskies-weather-item.is-medium,
+.blueskies-weather-item.is-portrait {
+  /* Switch to vertical layout */
+}
+
+.blueskies-weather-item.is-medium .main-zone,
+.blueskies-weather-item.is-portrait .main-zone {
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.blueskies-weather-item.is-medium .forecast-3hrs .item,
+.blueskies-weather-item.is-portrait .forecast-3hrs .item {
+  justify-content: center;
+}
+
+.blueskies-weather-item.is-medium .forecast-3hrs .weather-icon,
+.blueskies-weather-item.is-portrait .forecast-3hrs .weather-icon {
+  margin: 0.1em 0;
+}
+
+/* Switch to row layout for forecast */
+.blueskies-weather-item.is-medium .forecast,
+.blueskies-weather-item.is-portrait .forecast {
+  flex-flow: row nowrap;
+  margin-left: 0;
+  margin-top: 8em;
+  padding-top: 3em;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.blueskies-weather-item.is-medium .forecast .day,
+.blueskies-weather-item.is-portrait .forecast .day {
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1em;
+}
+
+.blueskies-weather-item.is-medium .forecast .inner,
+.blueskies-weather-item.is-portrait .forecast .inner {
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.blueskies-weather-item.is-medium .forecast .weather-icon,
+.blueskies-weather-item.is-portrait .forecast .weather-icon {
+  margin-left: 0;
+}
+
+.blueskies-weather-item.is-medium .contexts,
+.blueskies-weather-item.is-portrait .contexts {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+/* Medium specific styles */
+.blueskies-weather-item.is-medium .item-wrapper {
+  padding: 6em;
+}
+
+.blueskies-weather-item.is-medium .weather-icon {
+  font-size: 22em;
+}
+
+.blueskies-weather-item.is-medium .temp {
+  font-size: 18em;
+}
+
+.blueskies-weather-item.is-medium .current-condition {
+  font-size: 6em;
+}
+
+.blueskies-weather-item.is-medium .atmosphere {
+  padding-top: 1.6em;
+}
+
+.blueskies-weather-item.is-medium .atmosphere .item {
+  margin-left: 4em;
+}
+
+.blueskies-weather-item.is-medium .atmosphere .item:first-of-type {
+  margin-left: 0;
+}
+
+.blueskies-weather-item.is-medium .atmosphere .label-text {
+  font-size: 2em;
+}
+
+.blueskies-weather-item.is-medium .atmosphere .content {
+  font-size: 3em;
+}
+
+.blueskies-weather-item.is-medium .forecast-3hrs .hour {
+  font-size: 2.5em;
+}
+
+.blueskies-weather-item.is-medium .forecast-3hrs .temp {
+  font-size: 2.8em;
+}
+
+.blueskies-weather-item.is-medium .forecast-3hrs .weather-icon {
+  font-size: 6em;
+}
+
+.blueskies-weather-item.is-medium .forecast .temps {
+  font-size: 2.5em;
+}
+
+/* Portrait specific styles */
+.blueskies-weather-item.is-portrait .item-wrapper {
+  padding: 4em 6em;
+}
+
+.blueskies-weather-item.is-portrait .current {
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.blueskies-weather-item.is-portrait .weather-icon {
+  font-size: 30em;
+}
+
+.blueskies-weather-item.is-portrait .temp {
+  font-size: 24em;
+}
+
+.blueskies-weather-item.is-portrait .current-condition {
+  font-size: 8em;
+}
+
+.blueskies-weather-item.is-portrait .meta {
+  margin-top: 2em;
+  margin-left: 0;
+}
+
+.blueskies-weather-item.is-portrait .atmosphere .item {
+  margin-left: 6em;
+}
+
+.blueskies-weather-item.is-portrait .atmosphere .item:first-of-type {
+  margin-left: 0;
+}
+
+.blueskies-weather-item.is-portrait .atmosphere .label-text {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-portrait .atmosphere .content {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-portrait .forecast-3hrs {
+  padding-top: 2em;
+}
+
+.blueskies-weather-item.is-portrait .forecast-3hrs .hour {
+  font-size: 3.2em;
+}
+
+.blueskies-weather-item.is-portrait .forecast-3hrs .temp {
+  font-size: 3.5em;
+}
+
+.blueskies-weather-item.is-portrait .forecast-3hrs .weather-icon {
+  font-size: 7.5em;
+}
+
+.blueskies-weather-item.is-portrait .forecast {
+  margin-top: 6em;
+  padding-top: 2em;
+}
+
+.blueskies-weather-item.is-portrait .forecast .temps {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-portrait .forecast .weather-icon {
+  font-size: 9em;
+}
+
+/* Tall layout */
+.blueskies-weather-item.is-tall .weather-icon {
+  font-size: 22em;
+}
+
+.blueskies-weather-item.is-tall .temp {
+  font-size: 10em;
+}
+
+.blueskies-weather-item.is-tall .current-condition {
+  font-size: 6em;
+}
+
+.blueskies-weather-item.is-tall .icon-n-temp {
+  flex-flow: column nowrap;
+}
+
+.blueskies-weather-item.is-tall .atmosphere {
+  flex-flow: column nowrap;
+  padding: 4em 0 0 0;
+}
+
+.blueskies-weather-item.is-tall .atmosphere .item {
+  margin-left: 0;
+  margin-top: 4.5em;
+  text-align: center;
+}
+
+.blueskies-weather-item.is-tall .forecast-3hrs {
+  padding-top: 0;
+  flex-flow: row wrap;
+}
+
+.blueskies-weather-item.is-tall .forecast-3hrs .item {
+  padding-top: 6em;
+  width: 33.3%;
+  flex: none;
+}
+
+.blueskies-weather-item.is-tall .forecast-3hrs .hour {
+  font-size: 3.5em;
+}
+
+.blueskies-weather-item.is-tall .forecast-3hrs .temp {
+  font-size: 4em;
+}
+
+.blueskies-weather-item.is-tall .forecast-3hrs .weather-icon {
+  font-size: 8em;
+}
+
+/* Animation classes */
+.slide-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.fade-down {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+.fade-up-big {
+  animation: fadeInUpBig 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUpBig {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

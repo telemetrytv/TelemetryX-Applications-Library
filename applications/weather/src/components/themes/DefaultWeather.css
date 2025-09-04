@@ -1,0 +1,673 @@
+/* Default Weather Theme - Ported from legacy Stylus */
+
+.default-weather-wrapper {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+/* Weather Information Container */
+.weather-informations {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+/* Location and Date/Time Section */
+.location-infos {
+  padding: 1.5em 2.5em;
+}
+
+.location {
+  display: flex;
+  flex: 1 1 0.00001px;
+  position: relative;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.location .city {
+  font-size: 3em;
+  line-height: 120%;
+  font-weight: 600;
+}
+
+.time-n-date {
+}
+
+.current-date {
+  min-height: 1em;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  font-size: 2em;
+}
+
+.date {
+  padding-right: 0.8em;
+  font-weight: 300;
+}
+
+.simple-clock {
+  font-size: inherit;
+  color: inherit;
+  align-items: flex-start;
+}
+
+.simple-clock .time-wrapper {
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.simple-clock .apm {
+  font-weight: 300;
+}
+
+/* Main Weather Section */
+.main-section {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 1.5em 3.5em;
+}
+
+.current-and-recent {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Current Weather */
+.current {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Bump font-size when all forecasts are disabled */
+.current.no-forecasts .temp-n-condition,
+.current.no-forecasts .meta {
+  font-size: 1.3em;
+}
+
+.current.no-forecasts .current-icon {
+  font-size: 1.1em;
+}
+
+.current-icon {
+  /* To make sure the weather icon is absolutely centered */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.weather-icon {
+  display: inline-block;
+  font-size: 22em;
+}
+
+.temp-n-condition {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 40%;
+}
+
+.temp {
+  font-size: 8em;
+  overflow: hidden;
+}
+
+.temp-n-condition.smaller-size .temp {
+  font-size: 6em;
+}
+
+.current-condition {
+  font-size: 4.5em;
+  text-transform: capitalize;
+  overflow: hidden;
+}
+
+.current-condition .inner {
+  line-height: 130%;
+}
+
+.meta {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  max-width: 40%;
+}
+
+.meta * {
+  line-height: 100%;
+}
+
+.meta .item {
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.5em;
+  white-space: nowrap;
+}
+
+.meta .item:first-child {
+  margin-top: 0;
+}
+
+.meta .label-text {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  opacity: 0.7;
+  padding-bottom: 0.2em;
+}
+
+.meta .content {
+  font-size: 2em;
+  line-height: 130%;
+}
+
+/* Hourly Forecast */
+.forecast-3hrs {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 2em 1.5em 2em;
+}
+
+.forecast-3hrs .item {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.forecast-3hrs .inner {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.forecast-3hrs .hour {
+  font-size: 1.6em;
+  opacity: 0.7;
+}
+
+.forecast-3hrs .temp {
+  font-size: 2em;
+}
+
+.forecast-3hrs .weather-icon {
+  font-size: 4em;
+  margin: 0 0.5em;
+}
+
+/* Daily Forecast */
+.daily-forecasts {
+  padding: 1.5em 3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.daily-forecasts .day {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.daily-forecasts .inner {
+  flex: 1 1 0.00001px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.daily-forecasts .dow {
+  font-size: 1.8em;
+  line-height: 110%;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.1em;
+  font-weight: bold;
+}
+
+.daily-forecasts .temps {
+  font-size: 2em;
+  line-height: 110%;
+  margin-bottom: 0.05em;
+}
+
+.daily-forecasts .weather-icon {
+  font-size: 4em;
+  line-height: 130%;
+}
+
+/* Borders for sections */
+.border-bottom {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.border-left {
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Dark text mode */
+.dark-text {
+  color: #000000;
+}
+
+.dark-text .border-bottom {
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+.dark-text .border-top {
+  border-top-color: rgba(0, 0, 0, 0.3);
+}
+
+.dark-text .border-left {
+  border-left-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Text shadow */
+.show-text-shadow {
+  text-shadow: 0.05em 0.05em 0.1em rgba(0, 0, 0, 0.7);
+}
+
+/* Animation classes */
+.slide-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.slide-right {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.fade-down {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+.fade-up-big {
+  animation: fadeInUpBig 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUpBig {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* PORTRAIT LAYOUT */
+.default-weather-wrapper.is-portrait .weather-informations .main-section .current {
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.default-weather-wrapper.is-portrait .current-icon {
+  position: relative;
+}
+
+.default-weather-wrapper.is-portrait .temp-n-condition {
+  align-self: stretch;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  max-width: none;
+}
+
+.default-weather-wrapper.is-portrait .meta {
+  max-width: none;
+  flex-flow: row wrap;
+  align-items: center;
+  text-align: center;
+}
+
+.default-weather-wrapper.is-portrait .meta .item {
+  margin: 0.5em 1.5em !important;
+}
+
+.default-weather-wrapper.is-portrait .meta .label-text {
+  font-size: 3em;
+}
+
+.default-weather-wrapper.is-portrait .meta .content {
+  font-size: 4em;
+}
+
+.default-weather-wrapper.is-portrait .forecast-3hrs {
+  flex-flow: row wrap;
+  align-content: flex-end;
+}
+
+.default-weather-wrapper.is-portrait .forecast-3hrs .item {
+  padding-bottom: 2em;
+}
+
+.default-weather-wrapper.is-portrait .forecast-3hrs .hour {
+  font-size: 3.5em;
+}
+
+.default-weather-wrapper.is-portrait .forecast-3hrs .weather-icon {
+  font-size: 7em;
+}
+
+.default-weather-wrapper.is-portrait .forecast-3hrs .temp {
+  font-size: 4em;
+}
+
+.default-weather-wrapper.is-portrait .daily-forecasts {
+  flex-flow: row wrap;
+}
+
+.default-weather-wrapper.is-portrait .daily-forecasts .day {
+  padding-top: 2em;
+}
+
+.default-weather-wrapper.is-portrait .daily-forecasts .dow {
+  font-size: 3em;
+  margin-bottom: 0.3em;
+}
+
+.default-weather-wrapper.is-portrait .daily-forecasts .temps {
+  font-size: 4em;
+}
+
+.default-weather-wrapper.is-portrait .daily-forecasts .weather-icon {
+  font-size: 10em;
+}
+
+/* TALL LAYOUT */
+.default-weather-wrapper.is-tall .meta {
+  flex-flow: column nowrap;
+}
+
+.default-weather-wrapper.is-tall .meta .item {
+  margin: 2em 0.5em !important;
+}
+
+.default-weather-wrapper.is-tall .forecast-3hrs .item {
+  flex: none;
+  width: 33%;
+  padding-bottom: 3.5em;
+}
+
+.default-weather-wrapper.is-tall .daily-forecasts .day {
+  flex: none;
+  width: 50%;
+  padding-top: 3.5em;
+}
+
+/* WIDE LAYOUT */
+.default-weather-wrapper.is-wide .weather-informations {
+  flex-flow: row nowrap;
+}
+
+.default-weather-wrapper.is-wide .location-infos {
+  width: 15%;
+  padding: 1em 1.5em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.default-weather-wrapper.is-wide .location {
+  flex: none;
+  padding-bottom: 0.5em;
+}
+
+.default-weather-wrapper.is-wide .current-date {
+  font-size: 2em;
+}
+
+.default-weather-wrapper.is-wide .main-section {
+  flex-flow: row nowrap;
+  padding: 1em 2.5em;
+}
+
+.default-weather-wrapper.is-wide .weather-icon {
+  font-size: 14.4em;
+}
+
+.default-weather-wrapper.is-wide .temp {
+  font-size: 6.4em;
+}
+
+.default-weather-wrapper.is-wide .current-icon {
+  position: relative;
+}
+
+.default-weather-wrapper.is-wide .temp-n-condition.smaller-size .temp {
+  font-size: 5.2em;
+}
+
+.default-weather-wrapper.is-wide .current-condition {
+  font-size: 4em;
+}
+
+.default-weather-wrapper.is-wide .meta .item {
+  margin-top: 0.8em;
+}
+
+.default-weather-wrapper.is-wide .meta .item:first-child {
+  margin-top: 0;
+}
+
+.default-weather-wrapper.is-wide .meta .label-text {
+  font-size: 1.12em;
+}
+
+.default-weather-wrapper.is-wide .meta .content {
+  font-size: 1.6em;
+}
+
+.default-weather-wrapper.is-wide .forecast-3hrs {
+  font-size: 130%;
+  width: 20%;
+  padding: 0.75em;
+  flex-flow: row wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.default-weather-wrapper.is-wide .forecast-3hrs .item {
+  width: 30%;
+  padding: 1.5em 0.5em;
+  font-size: 0.7em;
+}
+
+.default-weather-wrapper.is-wide .forecast-3hrs .weather-icon {
+  font-size: 6em;
+}
+
+.default-weather-wrapper.is-wide .daily-forecasts {
+  font-size: 130%;
+  width: 20%;
+  padding: 0.75em;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.default-weather-wrapper.is-wide .daily-forecasts .day {
+  width: 48%;
+  padding: 1.2em 0.5em;
+  font-size: 0.6em;
+}
+
+.default-weather-wrapper.is-wide .daily-forecasts .weather-icon {
+  font-size: 8em;
+}
+
+/* NARROW WIDE LAYOUT */
+.default-weather-wrapper.is-narrow .temp-n-condition {
+  max-width: 45%;
+}
+
+.default-weather-wrapper.is-narrow .temp {
+  font-size: 8em;
+}
+
+.default-weather-wrapper.is-narrow .current-icon .weather-icon {
+  font-size: 20em;
+}
+
+.default-weather-wrapper.is-narrow .meta {
+  max-width: 45%;
+}
+
+.default-weather-wrapper.is-narrow .meta .item {
+  margin-top: 2.5em;
+}
+
+.default-weather-wrapper.is-narrow .meta .label-text {
+  font-size: 2.3em;
+}
+
+.default-weather-wrapper.is-narrow .meta .content {
+  font-size: 3em;
+}
+
+/* When NOT showing all forecasts (hourly + daily) - Horizontal align contents */
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .temp-n-condition {
+  font-size: 1.5em;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .current-condition {
+  margin-left: 0.5em;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .temp {
+  font-size: 4em;
+  font-weight: 600;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .current-icon .weather-icon {
+  font-size: 18em;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .meta {
+  flex-flow: row nowrap;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .meta .item {
+  margin-top: 0;
+  margin-left: 4.5em;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .meta .label-text {
+  font-size: 3em;
+}
+
+.default-weather-wrapper.is-narrow .current:not(.all-forecasts) .meta .content {
+  font-size: 3.8em;
+}
+
+.default-weather-wrapper.is-narrow .forecast-3hrs {
+  font-size: 160%;
+}
+
+.default-weather-wrapper.is-narrow .forecast-3hrs .item {
+  font-size: 1.2em;
+}
+
+.default-weather-wrapper.is-narrow .forecast-3hrs .weather-icon {
+  font-size: 5em;
+}
+
+.default-weather-wrapper.is-narrow .daily-forecasts {
+  font-size: 160%;
+}
+
+.default-weather-wrapper.is-narrow .daily-forecasts .day {
+  padding: 1.5em 0.5em;
+}
+
+.default-weather-wrapper.is-narrow.is-wide .current:not(.all-forecasts) .meta .item {
+  margin-left: 2.5em;
+}
+
+.default-weather-wrapper.is-narrow.is-wide .daily-forecasts .day {
+  padding: 0;
+}

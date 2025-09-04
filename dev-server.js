@@ -1,18 +1,27 @@
 #!/usr/bin/env node
 
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
-const chokidar = require('chokidar');
-const WebSocket = require('ws');
-const { execSync } = require('child_process');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import chokidar from 'chokidar';
+import { WebSocketServer } from 'ws';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Enable CORS for all origins in development
-app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'dev-harness')));
@@ -109,7 +118,7 @@ app.use('/apps/:appId', (req, res, next) => {
 });
 
 // WebSocket server for hot reload
-const wss = new WebSocket.Server({ port: 3001 });
+const wss = new WebSocketServer({ port: 3001 });
 
 // Watch for file changes
 const watcher = chokidar.watch([
@@ -125,7 +134,7 @@ watcher.on('change', (filePath) => {
   
   // Notify all connected clients
   wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
+    if (client.readyState === client.OPEN) {
       client.send(JSON.stringify({
         type: 'reload',
         path: filePath

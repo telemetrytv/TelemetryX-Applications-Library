@@ -28,9 +28,11 @@ applications/          # Independent applications
     vite.config.ts    # Own build config
     CLAUDE.md         # App-specific AI guide
   [other-apps]/       # Each fully independent
-dev-harness/          # Development preview tool
+dev-harness/          # Full-screen development preview tool
+  index.html          # Main harness interface with dual-iframe layout
+  telemetryx-harness.js # TelemetryX SDK mock environment
 scripts/              # Utility scripts
-dev-server.js         # Test server
+dev-server.js         # Development server (ES modules)
 ```
 
 ### Each Application Has:
@@ -98,11 +100,22 @@ applications/[app-name]/
 ## Application Development
 
 ### Development Workflow
-1. Navigate to application: `cd applications/weather`
-2. Install dependencies: `npm install`
-3. Start development: `npm run dev`
-4. Build for production: `npm run build`
-5. Test in dev harness: Go to root and run `npm run dev`
+1. **Root-level harness**: `npm run dev` - Full-screen dual-iframe development environment
+2. **Individual applications**: 
+   ```bash
+   cd applications/weather
+   npm install
+   npm run dev    # Individual app dev server
+   npm run build  # Build for production
+   ```
+3. **Testing in harness**: Applications automatically appear in dropdown when built
+
+#### Development Harness Features
+- **Dual iframe layout**: Render view (75% width, 1080p) + Settings view (25% width)
+- **Auto-loading**: First available application loads automatically
+- **Hot reload**: WebSocket-based file watching and automatic refresh
+- **Build integration**: Build applications directly from the interface
+- **TelemetryX SDK mock**: Complete mock environment for SDK testing
 
 ### Independence Requirements
 - Each app must build without any other apps
@@ -271,6 +284,34 @@ Key categories include:
 8. **Security first** - No exposed secrets, validate all data
 9. **Use SDK features** - Don't reinvent platform capabilities
 10. **Consider offline scenarios** - Cached data, fallback content
+
+## TelemetryX Harness Mock System
+
+The development harness includes a complete TelemetryX SDK mock environment (`telemetryx-harness.js`) that provides:
+
+### Mock Features
+- **Device Information**: Mock device capabilities, location, display specs
+- **Data APIs**: Simulated data fetching for weather, calendar, RSS, social media
+- **Storage System**: Local storage-based mock for application data
+- **Real-time Updates**: WebSocket-based data subscription system
+- **Message Bridge**: PostMessage API for iframe communication
+
+### Mock Data Available
+- **Device Info**: Location (San Francisco), display (1920x1080), capabilities
+- **Weather Data**: Current conditions, 3-day forecast, alerts
+- **Calendar Events**: Sample meetings and appointments
+- **RSS Feeds**: Mock news feed data
+- **Social Media**: Sample social media posts
+
+### SDK Communication
+The harness automatically:
+1. Establishes communication with iframe applications on load
+2. Provides mock responses to all TelemetryX SDK calls
+3. Supports data subscriptions with real-time updates
+4. Handles storage operations via localStorage
+5. Logs all SDK interactions for debugging
+
+This allows applications to be developed and tested without a live TelemetryX environment.
 
 ## Quick Commands
 

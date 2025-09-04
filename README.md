@@ -103,19 +103,25 @@ npm run build  # Build for production
 
 ### Development Harness
 
-The repository includes a development harness for testing applications locally:
+The repository includes a full-screen development harness for testing applications locally:
 
 1. Start the dev server: `npm run dev`
 2. Open http://localhost:3000 in your browser
-3. Select an application from the dropdown
-4. Preview in different screen resolutions
+3. Select an application from the dropdown (automatically loads first available app)
+4. View render and settings interfaces side-by-side
 5. Hot reload on file changes
 
 The harness provides:
-- Iframe-based application preview
-- Resolution presets (720p, 1080p, 4K)
-- WebSocket-based hot reload
-- Build status indicators
+- **Dual iframe layout**: Render iframe (3/4 width, 1080p aspect ratio) and Settings iframe (1/4 width, full height)
+- **Automatic application loading**: Dropdown automatically loads the selected application
+- **Build integration**: Build applications directly from the harness interface
+- **WebSocket-based hot reload**: Automatic refresh when files change
+- **TelemetryX SDK integration**: Mock TelemetryX environment for development and testing
+
+#### Harness Layout
+- **Left panel (75% width)**: Main application render view at 1080p aspect ratio
+- **Right panel (25% width)**: Application settings interface
+- **Top header**: Application selector, reload/build controls, and connection status
 
 ## Architecture
 

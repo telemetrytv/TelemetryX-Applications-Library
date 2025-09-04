@@ -5,6 +5,17 @@ All notable changes to the TelemetryX Applications Library will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) using YYYY.MM.DD format.
 
+## [2025.09.04.1] - Code Quality Improvements
+
+### Changed
+- **Enhanced TypeScript configuration**: Added stricter compiler options including noUnusedLocals, noUnusedParameters, noUncheckedIndexedAccess, and exactOptionalPropertyTypes for improved type safety
+- **Cleaned up imports**: Removed unused WeatherConfig import from App.tsx to eliminate dead code
+- **Dependency version alignment**: Standardized react-dom version to maintain consistency across weather application
+
+### Fixed
+- **TypeScript strict mode compliance**: All weather application code now passes stricter TypeScript validation
+- **Import optimization**: Eliminated unused imports to improve bundle size and code clarity
+
 ## [2025.09.04] - SDK Compliance Refactoring
 
 ### Added

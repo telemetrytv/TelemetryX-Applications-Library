@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { store } from '@telemetryx/sdk';
-import { WeatherConfig, WeatherData } from './types';
+import { WeatherData } from './types';
 import './App.css';
 
 export const App: React.FC = () => {

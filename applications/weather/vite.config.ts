@@ -9,13 +9,13 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       input: {
-        render: resolve(__dirname, 'src/render.html'),
+        index: resolve(__dirname, 'src/index.html'),
         settings: resolve(__dirname, 'src/settings.html')
       },
       output: {
-        entryFileNames: '[name]/index.js',
-        chunkFileNames: '[name]/[name].js',
-        assetFileNames: '[name]/[name].[ext]'
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name]-[hash].[ext]'
       }
     }
   },

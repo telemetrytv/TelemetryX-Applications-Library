@@ -234,10 +234,10 @@ Every TelemetryX application requires a `telemetry.config.json` file:
   
   "mountPoints": {
     "render": {
-      "path": "/render"
+      "path": "/index.html"
     },
     "settings": {
-      "path": "/settings"
+      "path": "/settings.html"
     }
   },
   
@@ -266,6 +266,28 @@ Every TelemetryX application requires a `telemetry.config.json` file:
 - **mountPoints**: URL paths for different application contexts
 - **workers**: Background scripts for continuous processing
 - **containers**: Docker containers for backend services
+
+### Routing Conventions
+
+**Standard Mount Point Paths:**
+- **Render Route**: Always use `/index.html` - This is the main application entry point that displays on devices and in the Freeform Editor
+- **Settings Route**: Always use `/settings.html` - This is the configuration interface shown in the admin UI
+
+**Why `/index.html`?**
+- Follows web standards and conventions
+- Provides clear default entry point
+- Simplifies build configurations
+- Consistent across all TelemetryX applications
+
+**Build Structure:**
+```
+dist/
+├── index.html          # Main application (render mount point)
+├── settings.html       # Settings interface (settings mount point)
+├── index.js           # Main app JavaScript bundle
+├── settings.js        # Settings JavaScript bundle
+└── assets/            # CSS, images, and other assets
+```
 
 ## Development Patterns
 
@@ -585,7 +607,7 @@ The typical development workflow for TelemetryX applications:
   "displayName": "Weather Display",
   "description": "Shows current weather conditions for a selected city",
   "mountPoints": {
-    "render": { "path": "/render.html" },
+    "render": { "path": "/index.html" },
     "settings": { "path": "/settings.html" }
   }
 }
@@ -668,7 +690,7 @@ form.addEventListener('submit', async (e) => {
 });
 ```
 
-#### render.html & render.js
+#### index.html & render.js
 ```html
 <!DOCTYPE html>
 <html>

@@ -135,6 +135,24 @@ applications/[app-name]/
 ### SDK Usage
 For detailed SDK usage patterns, data fetching, storage, and API examples, see **[SDK_GUIDE.md](SDK_GUIDE.md)**.
 
+### Application Routing Convention
+**Standard Mount Point Paths:**
+- **Render Route**: Always use `/index.html` for the main application display
+- **Settings Route**: Always use `/settings.html` for configuration interface
+
+```json
+// telemetry.config.json
+{
+  "name": "app-name",
+  "mountPoints": {
+    "render": { "path": "/index.html" },
+    "settings": { "path": "/settings.html" }
+  }
+}
+```
+
+This convention ensures consistency across all applications and follows web standards.
+
 ### State Management
 ```typescript
 // Prefer Context API for simple state

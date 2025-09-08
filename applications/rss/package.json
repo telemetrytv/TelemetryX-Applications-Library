@@ -1,0 +1,42 @@
+{
+  "name": "telemetryx-rss-app",
+  "version": "1.0.0",
+  "description": "RSS feed reader application for TelemetryX digital signage",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.0.0",
+    "rss-parser": "^3.13.0",
+    "xml2js": "^0.6.2",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/xml2js": "^0.4.14",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.9.2",
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "telemetryx": {
+    "type": "application",
+    "category": "informational",
+    "displayName": "RSS Reader",
+    "icon": "./assets/icon.svg",
+    "permissions": [
+      "network"
+    ],
+    "configSchema": "./config/schema.json"
+  }
+}

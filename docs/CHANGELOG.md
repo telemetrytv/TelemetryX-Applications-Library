@@ -5,6 +5,29 @@ All notable changes to the TelemetryX Applications Library will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) using YYYY.MM.DD format.
 
+## [2025.01.11] - SDK Bridge Architecture Migration
+
+### Changed
+- **Major SDK Architecture Update**: Transitioned from custom mock to official TelemetryX SDK integration
+- **Bridge Implementation**: Updated development harness to use `bridge-stub.js` with `@telemetryx/root-sdk` Bridge class
+- **File Organization**: Moved `dev-server.js` to `dev-harness/server.js` for improved project structure
+- **Hello World Application**: Updated to use real `@telemetryx/sdk` instead of deprecated window.telemetryX global
+- **Storage Patterns**: Enhanced SDK storage with proper scoped operations (account, application, device)
+- **Real-time Subscriptions**: Improved data subscriptions using official Bridge messaging protocol
+
+### Updated Documentation
+- **CLAUDE.md**: Updated repository guide to reflect new Bridge implementation architecture
+- **DEV_HARNESS.md**: Enhanced with detailed Bridge communication patterns and official SDK integration
+- **applications/hello-world/CLAUDE.md**: Updated with modern SDK usage patterns and official import syntax
+- **Architecture References**: Replaced all mock harness references with official SDK Bridge system
+
+### Technical Improvements
+- **Production Protocol**: Bridge-based client-server communication using same protocol as production
+- **Official SDK Integration**: Proper message handling with `@telemetryx/root-sdk` Bridge class
+- **Scoped Storage**: Storage operations now match production TelemetryX environment patterns
+- **Enhanced Media Management**: Media folder and content operations via Bridge protocol
+- **Development Parity**: Development environment now closely mirrors production TelemetryX platform
+
 ## [2025.09.04.1] - Code Quality Improvements
 
 ### Changed

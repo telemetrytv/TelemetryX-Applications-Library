@@ -5,6 +5,31 @@ All notable changes to the TelemetryX Applications Library will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) using YYYY.MM.DD format.
 
+## [2025.01.11-2] - Repository Reset: Focus on Reference Implementation
+
+### Changed
+- **Repository Reset**: Removed all applications except hello-world to start fresh with clean reference implementation
+- **Documentation Updates**: Updated CLAUDE.md and README.md to reflect hello-world as the only current application
+- **Restructured Focus**: Repository now prioritizes quality over quantity with hello-world as exemplary reference
+- **Clear Application Status**: Distinguished between current (hello-world) and planned applications in documentation
+
+### Added
+- **Professional Visual Documentation**: Created dev-harness-visual.html with SVG diagrams replacing ASCII art
+- **Enhanced Architecture Diagrams**: Professional visual representation of development harness architecture
+- **Cleaner Repository Structure**: Simplified structure focusing on reference implementation quality
+
+### Removed
+- **Weather Application**: Moved to planned/future applications list for potential reimplementation
+- **RSS Application**: Moved to planned/future applications list for potential reimplementation
+- **Multiple Incomplete Applications**: Removed to focus development effort on single quality reference
+- **Legacy .gitignore**: Removed to align with standard Node.js patterns
+
+### Technical Details
+- **Single Reference Implementation**: Repository now contains only hello-world as working, tested application
+- **Future Application Planning**: All planned applications clearly documented with intended features
+- **Visual Documentation Enhancement**: Professional SVG diagrams improve developer understanding
+- **Simplified Development Flow**: Focus on perfecting single application pattern before expanding
+
 ## [2025.01.11] - SDK Bridge Architecture Migration
 
 ### Changed

@@ -11,7 +11,7 @@ TelemetryX is a low-code platform for digital screens that enables full-fledged 
 
 ### Repository Purpose
 This library provides:
-1. **Independent Applications**: Weather, YouTube, RSS, Slack, Clock, etc.
+1. **Independent Applications**: Starting with Hello World as the reference implementation
 2. **Development Harness**: Browser-based preview environment
 3. **Build Scripts**: Tools to build all applications independently
 
@@ -20,14 +20,14 @@ This library provides:
 ### Repository Structure
 ```
 applications/          # Independent applications
-  weather/            # Complete standalone app
+  hello-world/        # Reference implementation app
     src/              # Source code
     dist/             # Built output
     package.json      # Own dependencies
     tsconfig.json     # Own TypeScript config
     vite.config.ts    # Own build config
     CLAUDE.md         # App-specific AI guide
-  [other-apps]/       # Each fully independent
+  [future-apps]/      # Each will be fully independent
 dev-harness/          # Full-screen development preview tool
   index.html          # Main harness interface with dual-iframe layout
   bridge-stub.js      # TelemetryX SDK Bridge stub using @telemetryx/root-sdk
@@ -69,7 +69,7 @@ For comprehensive SDK patterns, architecture, and code examples, refer to **[SDK
 
 ### Steps for New Apps
 1. Create new folder in `applications/`
-2. Copy structure from existing app (like weather)
+2. Copy structure from hello-world app as the reference
 3. Create own `package.json` with `@telemetryx/sdk` dependency
 4. Create own `tsconfig.json` and build config
 5. Create own `CLAUDE.md` for AI assistance
@@ -101,7 +101,7 @@ applications/[app-name]/
 1. **Root-level harness**: `npm run dev` - Full-screen dual-iframe development environment
 2. **Individual applications**: 
    ```bash
-   cd applications/weather
+   cd applications/hello-world
    npm install
    npm run dev    # Individual app dev server
    npm run build  # Build for production
@@ -323,7 +323,7 @@ npm run app:placeholders       # Create placeholder HTML files
 
 ### Application Level
 ```bash
-cd applications/weather        # Navigate to app
+cd applications/hello-world    # Navigate to app
 npm install                    # Install app dependencies
 npm run dev                    # Start app dev server
 npm run build                  # Build app for production
@@ -332,7 +332,7 @@ npm run typecheck              # TypeScript validation
 
 ### Deployment
 ```bash
-cd applications/weather
+cd applications/hello-world
 npm run build                  # Build the application
 # Deploy dist/ folder to TelemetryX
 ```

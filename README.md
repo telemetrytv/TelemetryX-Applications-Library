@@ -36,17 +36,22 @@ Each application:
 
 ## Applications Catalog
 
-### Core Applications
+### Current Applications
 
 | Application | Description | Status | Use Cases |
 |------------|-------------|---------|-----------|
-| **[Weather](applications/weather)** | Dynamic weather displays with forecasts, alerts, and custom layouts | ✅ Production | Retail, Corporate, Public Spaces |
-| **[YouTube](applications/youtube)** | Video player with playlist management and scheduling | ✅ Production | Retail, Waiting Rooms, Corporate |
-| **[RSS Feed](applications/rss)** | News and content aggregator with customizable templates | ✅ Production | Corporate, Healthcare, Education |
-| **[Slack](applications/slack)** | Team communication dashboard and notification display | ✅ Production | Corporate, Tech Companies |
-| **[Clock](applications/clock)** | World clocks with timezone support and custom styles | ✅ Production | Corporate, Transportation, Global Offices |
-| **[Calendar](applications/calendar)** | Event display with Google/Outlook integration | 📋 Planned | Meeting Rooms, Corporate, Education |
-| **[Notice](applications/notice)** | Display a notice to the user as a large message inside a box | ✅ Production | Corporate, Education, Public Spaces |
+| **[Hello World](applications/hello-world)** | Reference implementation demonstrating SDK integration and best practices | ✅ Production | Template, Learning, Development |
+
+### Planned Applications
+
+| Application | Description | Status | Use Cases |
+|------------|-------------|---------|-----------|
+| **Weather** | Dynamic weather displays with forecasts and alerts | 📋 Planned | Retail, Corporate, Public Spaces |
+| **YouTube** | Video player with playlist management | 📋 Planned | Retail, Waiting Rooms |
+| **RSS Feed** | News and content aggregator | 📋 Planned | Corporate, Healthcare |
+| **Slack** | Team communication dashboard | 📋 Planned | Corporate, Tech Companies |
+| **Clock** | World clocks with timezone support | 📋 Planned | Corporate, Transportation |
+| **Calendar** | Event display with integrations | 📋 Planned | Meeting Rooms, Education |
 
 
 ## Quick Start
@@ -95,7 +100,7 @@ npm run app:placeholders
 
 For individual applications:
 ```bash
-cd applications/weather
+cd applications/hello-world
 npm install
 npm run dev    # Start dev server
 npm run build  # Build for production

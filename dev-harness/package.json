@@ -1,0 +1,26 @@
+{
+  "name": "telemetryx-dev-harness",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Development harness for TelemetryX applications",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build",
+    "preview": "tsx server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@telemetryx/root-sdk": "^1.0.0-alpha11",
+    "chokidar": "^4.0.1",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14"
+  }
+}

@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node dev-harness/server.js",
+    "dev": "cd dev-harness && npm run dev",
     "build:all": "node scripts/build-all-apps.js",
     "app:placeholders": "node scripts/create-placeholder.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",

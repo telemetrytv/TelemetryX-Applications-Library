@@ -207,3 +207,6 @@ process.on('SIGINT', () => {
   server.close();
   process.exit(0);
 });
+
+// Export for testing
+export { server, wss, watcher };

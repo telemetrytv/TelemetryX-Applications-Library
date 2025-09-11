@@ -1,6 +1,5 @@
 export default {
   testEnvironment: 'node',
-  extensionsToTreatAsEsm: ['.js'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
@@ -10,7 +9,6 @@ export default {
     '**/tests/**/*.spec.js'
   ],
   collectCoverageFrom: [
-    'dev-server.js',
     'dev-harness/**/*.js',
     'scripts/**/*.js',
     '!**/node_modules/**',

@@ -1,0 +1,13 @@
+{
+  "name": "hello-world",
+  "displayName": "Hello World",
+  "description": "Reference implementation demonstrating SDK integration and best practices",
+  "mountPoints": {
+    "render": {
+      "path": "/index.html"
+    },
+    "settings": {
+      "path": "/settings.html"
+    }
+  }
+}

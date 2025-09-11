@@ -42,6 +42,10 @@ dev-server.js         # Development server (ES modules)
 - **Own documentation**: README.md and CLAUDE.md
 - **No shared dependencies**: Complete isolation
 
+## Development Environment
+
+For detailed technical documentation about the development harness, including hot reload, iframe architecture, SDK mock system, and data flow diagrams, see **[DEV_HARNESS.md](docs/DEV_HARNESS.md)**.
+
 ## Development Standards
 
 ### Application Requirements

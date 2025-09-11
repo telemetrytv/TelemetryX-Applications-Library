@@ -11,7 +11,7 @@ TelemetryX is a low-code platform for digital screens that enables full-fledged 
 
 ### Repository Purpose
 This library provides:
-1. **Independent Applications**: Weather, YouTube, RSS, Slack, Clock, Dashboard, etc.
+1. **Independent Applications**: Weather, YouTube, RSS, Slack, Clock, etc.
 2. **Development Harness**: Browser-based preview environment
 3. **Build Scripts**: Tools to build all applications independently
 
@@ -49,25 +49,17 @@ Each application MUST:
 1. Be completely independent (own package.json, build system)
 2. Include `@telemetryx/sdk` as a dependency
 3. Use TypeScript 5.7+ with strict mode
-4. Use React 19.1+
+4. Suggest using React 19.1+ (or like)
 5. Build to its own dist/ directory
 6. Include comprehensive error handling for 24/7 operation
 7. Support offline fallbacks
 8. Be optimized for display from distance
+9. Support both a render and settings mount point
 
 ### Code Patterns
 
 For comprehensive SDK patterns, architecture, and code examples, refer to **[SDK_GUIDE.md](SDK_GUIDE.md)**.
 
-#### Display Optimization
-```typescript
-// Design for readability at distance
-const styles = {
-  fontSize: 'clamp(24px, 4vw, 72px)', // Responsive sizing
-  contrast: 'high',                    // WCAG AAA compliance
-  animation: 'subtle'                  // Avoid distracting motion
-};
-```
 
 ## Creating New Applications
 
@@ -79,22 +71,24 @@ const styles = {
 5. Create own `CLAUDE.md` for AI assistance
 6. Implement application logic
 7. Document usage and configuration
+8. Create a `telemetry.config.json` to reference app options such as mount points
 
 ### Required Files
 ```
 applications/[app-name]/
   src/
-    App.tsx           # Main component
-    index.tsx         # Entry point
-    types.ts          # TypeScript types
-  dist/              # Built output (generated)
-  docs/              # Documentation
-  package.json       # Own dependencies (@telemetryx/sdk)
-  tsconfig.json      # Own TypeScript config
-  vite.config.ts     # Own build config
-  CLAUDE.md          # AI assistant guide
-  README.md          # App documentation
-  .gitignore         # Git ignore rules
+    App.tsx               # Main component
+    index.tsx             # Entry point
+    types.ts              # TypeScript types
+  dist/                   # Built output (generated)
+  docs/                   # Documentation
+  package.json            # Own dependencies (@telemetryx/sdk)
+  tsconfig.json           # Own TypeScript config
+  vite.config.ts          # Own build config
+  CLAUDE.md               # AI assistant guide
+  README.md               # App documentation
+  telemetry.config.json   # TelemetryX Application Information
+  .gitignore              # Git ignore rules
 ```
 
 ## Application Development
@@ -285,7 +279,7 @@ Key categories include:
 9. **Use SDK features** - Don't reinvent platform capabilities
 10. **Consider offline scenarios** - Cached data, fallback content
 
-## TelemetryX Harness Mock System
+## TelemetryX Development Harness Mock System
 
 The development harness includes a complete TelemetryX SDK mock environment (`telemetryx-harness.js`) that provides:
 
@@ -341,11 +335,9 @@ npm run build                  # Build the application
 ## Resources
 
 - **SDK Guide**: [SDK_GUIDE.md](SDK_GUIDE.md) - Comprehensive SDK documentation
-- **TelemetryX SDK Docs**: https://sdk.telemetryx.ai
 - **Platform Documentation**: https://docs.telemetryx.ai
-- **Design Guidelines**: docs/design-guidelines.md
-- **API Reference**: https://api.telemetryx.ai
-- **Support**: developers@telemetryx.ai
+- **API Reference**: https://docs.telemetryx.ai/reference/introduction
+- **Support**: Via the in app chat
 
 ## Contributing Checklist
 
@@ -363,4 +355,4 @@ When contributing to this repository:
 
 ---
 
-**Remember**: Applications in this library run on commercial digital signage displays that operate 24/7 in public spaces. Reliability, performance, and user experience are critical.
+**Remember**: Applications in this library run on commercial kiosk and digital signage displays that operate 24/7 in public spaces. Reliability, performance, and user experience are critical.

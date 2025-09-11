@@ -389,8 +389,17 @@
     </div>
   </div>
 
-  <!-- Include TelemetryX Harness -->
-  <script src="telemetryx-harness.js"></script>
+  <!-- Include TelemetryX Bridge Stub -->
+  <script type="module">
+    import TelemetryXBridgeStub from './bridge-stub.js';
+    
+    // Initialize the bridge stub globally
+    window.bridgeStub = new TelemetryXBridgeStub();
+    console.log('🚀 TelemetryX Bridge Stub initialized');
+    
+    // Make it available for debugging
+    window.TelemetryXBridgeStub = TelemetryXBridgeStub;
+  </script>
 
   <script>
     const appSelect = document.getElementById('app-select');
@@ -514,11 +523,8 @@
         renderLoaded = true;
         checkBothLoaded();
         
-        // Set up TelemetryX harness communication with the render iframe
-        if (window.telemetryxHarness) {
-          window.telemetryxHarness.setIframe(renderIframe);
-          console.log('🔗 TelemetryX harness connected to render iframe');
-        }
+        // Bridge stub automatically handles communication with all iframes
+        console.log('🔗 Bridge stub ready for render iframe communication');
       };
       
       renderIframe.onerror = () => {

@@ -10,12 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@telemetryx/sdk": "^1.0.0-alpha10",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "lucide-react": "^0.263.0",
+    "@telemetryx/sdk": "1.0.0-alpha11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.0",
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@
     "app:placeholders": "node scripts/create-placeholder.js"
   },
   "dependencies": {
-    "@telemetryx/sdk": "^1.0.0-alpha10"
+    "@telemetryx/sdk": "^1.0.0-alpha11"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

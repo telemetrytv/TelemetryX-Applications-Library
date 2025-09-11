@@ -1,26 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import * as sdk from '@telemetryx/sdk';
 import type { AppConfig } from './types';
 import { DEFAULT_CONFIG } from './types';
-
-declare global {
-  interface Window {
-    telemetryX?: {
-      storage?: {
-        get: (key: string) => Promise<unknown>;
-        set: (key: string, value: unknown) => Promise<void>;
-        onChange: (callback: (key: string, value: unknown) => void) => void;
-      };
-    };
-  }
-}
-
-class AppErrorBoundary extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'AppErrorBoundary';
-  }
-}
 
 function App() {
   const [config, setConfig] = useState<AppConfig>(DEFAULT_CONFIG);
@@ -28,21 +10,24 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Configure the SDK with the application name
+    sdk.configure('hello-world');
+
     const loadConfig = async () => {
       try {
         setIsLoading(true);
         setError(null);
         
-        if (window.telemetryX?.storage) {
-          const storedMessage = await window.telemetryX.storage.get('message');
-          if (typeof storedMessage === 'string') {
-            setConfig({ message: storedMessage });
-          } else {
-            setConfig(DEFAULT_CONFIG);
-            await window.telemetryX.storage.set('message', DEFAULT_CONFIG.message);
-          }
+        // Use the SDK store API to get the message from application scope
+        const store = sdk.store();
+        const storedConfig = await store.application.get<AppConfig>('config');
+        
+        if (storedConfig && storedConfig.message) {
+          setConfig(storedConfig);
         } else {
+          // Initialize with default config if not found
           setConfig(DEFAULT_CONFIG);
+          await store.application.set('config', DEFAULT_CONFIG);
         }
       } catch (err) {
         console.error('Failed to load configuration:', err);
@@ -53,15 +38,27 @@ function App() {
       }
     };
 
-    loadConfig();
+    const setupSubscription = async () => {
+      try {
+        // Subscribe to changes in the config
+        const store = sdk.store();
+        await store.application.subscribe('config', (newConfig: AppConfig | undefined) => {
+          if (newConfig && newConfig.message) {
+            setConfig(newConfig);
+          }
+        });
+      } catch (err) {
+        console.error('Failed to setup subscription:', err);
+      }
+    };
 
-    if (window.telemetryX?.storage) {
-      window.telemetryX.storage.onChange((key: string, value: unknown) => {
-        if (key === 'message' && typeof value === 'string') {
-          setConfig(prev => ({ ...prev, message: value }));
-        }
-      });
-    }
+    loadConfig();
+    setupSubscription();
+
+    // Cleanup on unmount
+    return () => {
+      sdk.destroy();
+    };
   }, []);
 
   if (isLoading) {

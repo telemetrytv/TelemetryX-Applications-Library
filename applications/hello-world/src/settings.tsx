@@ -3,20 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { configure, destroy, store } from '@telemetryx/sdk';
 import type { AppConfig } from './types';
 import { DEFAULT_CONFIG } from './types';
 import { Settings } from 'lucide-react';
-
-declare global {
-  interface Window {
-    telemetryX?: {
-      storage?: {
-        get: (key: string) => Promise<unknown>;
-        set: (key: string, value: unknown) => Promise<void>;
-      };
-    };
-  }
-}
 
 function SettingsApp() {
   const [config, setConfig] = useState<AppConfig>(DEFAULT_CONFIG);
@@ -26,18 +16,20 @@ function SettingsApp() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    // Configure the SDK with the application name
+    configure('hello-world');
+
     const loadConfig = async () => {
       try {
         setIsLoading(true);
         setError(null);
         
-        if (window.telemetryX?.storage) {
-          const storedMessage = await window.telemetryX.storage.get('message');
-          if (typeof storedMessage === 'string') {
-            setConfig({ message: storedMessage });
-          } else {
-            setConfig(DEFAULT_CONFIG);
-          }
+        // Use the SDK store API to get the config from application scope
+        const s = store();
+        const storedConfig = await s.application.get<AppConfig>('config');
+        
+        if (storedConfig && storedConfig.message) {
+          setConfig(storedConfig);
         } else {
           setConfig(DEFAULT_CONFIG);
         }
@@ -51,6 +43,11 @@ function SettingsApp() {
     };
 
     loadConfig();
+
+    // Cleanup on unmount
+    return () => {
+      destroy();
+    };
   }, []);
 
   const handleSave = async () => {
@@ -59,13 +56,12 @@ function SettingsApp() {
       setError(null);
       setSuccessMessage(null);
 
-      if (window.telemetryX?.storage) {
-        await window.telemetryX.storage.set('message', config.message);
-        setSuccessMessage('Settings saved successfully!');
-        setTimeout(() => setSuccessMessage(null), 3000);
-      } else {
-        throw new Error('TelemetryX storage not available');
-      }
+      // Use the SDK store API to save the config to application scope
+      const s = store();
+      await s.application.set('config', config);
+      
+      setSuccessMessage('Settings saved successfully!');
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
       console.error('Failed to save configuration:', err);
       setError(err instanceof Error ? err.message : 'Failed to save settings');

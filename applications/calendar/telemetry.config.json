@@ -1,0 +1,10 @@
+{
+    "name": "calendar",
+    "version": "1.0.0",
+    "description": "Google Calendar Display for TelemetryX",
+    "mountPoints": {
+      "render": { "path": "/index.html" },
+      "settings": { "path": "/settings.html" }
+    },
+    "singlePageApplicationRouting": true
+  }

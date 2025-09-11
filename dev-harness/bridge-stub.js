@@ -22,7 +22,7 @@ export class TelemetryXBridgeStub {
     this.initializeSampleData();
     
     // Set up the onMessage handler
-    this.bridge.onMessage = this.handleClientMessage.bind(this);
+    this.bridge.onMessage = (m) => this.handleClientMessage(m);
     
     // Bind the bridge to start listening
     this.bridge.bind();

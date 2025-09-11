@@ -30,9 +30,9 @@ applications/          # Independent applications
   [other-apps]/       # Each fully independent
 dev-harness/          # Full-screen development preview tool
   index.html          # Main harness interface with dual-iframe layout
-  telemetryx-harness.js # TelemetryX SDK mock environment
+  bridge-stub.js      # TelemetryX SDK Bridge stub using @telemetryx/root-sdk
+  server.js           # Development server with WebSocket hot reload
 scripts/              # Utility scripts
-dev-server.js         # Development server (ES modules)
 ```
 
 ### Each Application Has:
@@ -283,9 +283,9 @@ Key categories include:
 9. **Use SDK features** - Don't reinvent platform capabilities
 10. **Consider offline scenarios** - Cached data, fallback content
 
-## TelemetryX Development Harness Mock System
+## TelemetryX Development Harness Bridge System
 
-The development harness includes a complete TelemetryX SDK mock environment (`telemetryx-harness.js`) that provides:
+The development harness includes a complete TelemetryX SDK Bridge implementation (`bridge-stub.js`) using the official `@telemetryx/root-sdk` that provides:
 
 ### Mock Features
 - **Device Information**: Mock device capabilities, location, display specs
@@ -301,15 +301,16 @@ The development harness includes a complete TelemetryX SDK mock environment (`te
 - **RSS Feeds**: Mock news feed data
 - **Social Media**: Sample social media posts
 
-### SDK Communication
-The harness automatically:
-1. Establishes communication with iframe applications on load
-2. Provides mock responses to all TelemetryX SDK calls
-3. Supports data subscriptions with real-time updates
-4. Handles storage operations via localStorage
-5. Logs all SDK interactions for debugging
+### SDK Bridge Communication
+The harness uses the official `@telemetryx/root-sdk` Bridge class to:
+1. Create a Bridge instance that handles client-server communication
+2. Provide mock responses to all SDK client messages via onMessage handler
+3. Support data subscriptions with real-time updates
+4. Handle storage operations with scoped stores (account, application, device)
+5. Manage media folders and content operations
+6. Log all SDK interactions for debugging
 
-This allows applications to be developed and tested without a live TelemetryX environment.
+This allows applications using `@telemetryx/sdk` to be developed and tested with the same Bridge protocol used in production TelemetryX environments.
 
 ## Quick Commands
 

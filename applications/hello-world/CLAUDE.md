@@ -53,22 +53,21 @@ applications/hello-world/
 
 ### 1. TelemetryX SDK Integration
 ```typescript
-// Global type declaration for SDK
-declare global {
-  interface Window {
-    telemetryX?: {
-      storage?: {
-        get: (key: string) => Promise<unknown>;
-        set: (key: string, value: unknown) => Promise<void>;
-        onChange: (callback: (key: string, value: unknown) => void) => void;
-      };
-    };
-  }
-}
+// Import the official SDK
+import * as sdk from '@telemetryx/sdk';
+
+// Configure SDK with application name
+sdk.configure('hello-world');
 
 // Usage in components
-const message = await window.telemetryX.storage.get('message');
-await window.telemetryX.storage.set('message', newMessage);
+const store = sdk.store();
+const config = await store.application.get<AppConfig>('config');
+await store.application.set('config', newConfig);
+
+// Subscribe to changes
+await store.application.subscribe('config', (newConfig) => {
+  // Handle configuration updates
+});
 ```
 
 ### 2. TypeScript Configuration
@@ -175,18 +174,19 @@ npm run preview      # Preview production build
 
 ### 2. Storage Integration
 ```typescript
-// Always check SDK availability
-if (window.telemetryX?.storage) {
-  // Use SDK
-} else {
-  // Provide fallback or error state
-}
+// SDK is always available via npm package
+import * as sdk from '@telemetryx/sdk';
+
+// Use scoped storage operations
+const store = sdk.store();
 
 // Always include error handling
 try {
-  await window.telemetryX.storage.set(key, value);
+  await store.application.set('config', value);
 } catch (error) {
-  // Handle gracefully
+  // Handle gracefully with fallback
+  console.error('Storage error:', error);
+  // Provide default configuration
 }
 ```
 

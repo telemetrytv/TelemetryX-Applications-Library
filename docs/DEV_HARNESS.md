@@ -30,7 +30,7 @@ The TelemetryX Development Harness is a sophisticated browser-based development 
 ### Server Architecture
 
 ```
-dev-server.js (Express Server - Port 3000)
+dev-harness/server.js (Express Server - Port 3000)
     │
     ├── Static File Serving
     │   └── dev-harness/ (HTML, JS, CSS)
@@ -58,9 +58,9 @@ dev-server.js (Express Server - Port 3000)
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │              @telemetryx/sdk                        │   │
 │  │                                                     │   │
-│  │  telemetryx.device.getInfo() ───┐                 │   │
-│  │  telemetryx.data.fetch()    ────┼──┐              │   │
-│  │  telemetryx.storage.set()   ────┼──┼──┐           │   │
+│  │  sdk.device.getInfo() ───────┐                     │   │
+│  │  sdk.data.fetch()    ────────┼──┐                 │   │
+│  │  sdk.store().application.set()┼──┼──┐              │   │
 │  │                                  │  │  │           │   │
 │  └───────────────────────────────────┼──┼──┼───────────┘   │
 │                                      │  │  │               │
@@ -73,13 +73,13 @@ dev-server.js (Express Server - Port 3000)
 │                 Development Harness  │  │  │               │
 │                                      ↓  ↓  ↓               │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │         telemetryx-harness.js (Mock SDK)           │   │
+│  │      bridge-stub.js (@telemetryx/root-sdk Bridge)   │   │
 │  │                                                     │   │
-│  │  handleIframeMessage() {                           │   │
-│  │    switch(type) {                                  │   │
-│  │      'telemetryx.device.getInfo': → mockData      │   │
-│  │      'telemetryx.data.get': → mockData            │   │
-│  │      'telemetryx.storage.set': → localStorage     │   │
+│  │  bridge.onMessage = (msg) => {                     │   │
+│  │    switch(msg.type) {                             │   │
+│  │      'device.getInfo': → mockDeviceData           │   │
+│  │      'data.fetch': → mockAPIData                  │   │
+│  │      'store.set': → scopedStorage                 │   │
 │  │    }                                               │   │
 │  │  }                                                 │   │
 │  │                                                     │   │
@@ -233,18 +233,19 @@ applications/
 
 ### SDK API Methods
 
-The mock SDK implements these TelemetryX SDK methods:
+The Bridge stub implements the official `@telemetryx/sdk` client API using `@telemetryx/root-sdk`:
 
 | Method | Description | Mock Behavior |
 |--------|-------------|---------------|
-| `telemetryx.ready()` | Signal app is ready | Establishes connection |
-| `telemetryx.device.getInfo()` | Get device information | Returns mock device data |
-| `telemetryx.data.get(key)` | Fetch data by key | Returns mock data for key |
-| `telemetryx.data.set(key, value)` | Store data | Saves to memory map |
-| `telemetryx.data.subscribe(key, callback)` | Subscribe to data changes | Sets up mock subscription |
-| `telemetryx.storage.get(key)` | Get from storage | Uses localStorage |
-| `telemetryx.storage.set(key, value)` | Save to storage | Uses localStorage |
-| `telemetryx.config.get()` | Get app configuration | Returns mock config |
+| `sdk.configure(appName)` | Configure SDK with app name | Sets up Bridge connection |
+| `sdk.device.getInfo()` | Get device information | Returns mock device data |
+| `sdk.data.fetch(source, params)` | Fetch external data | Returns mock API data |
+| `sdk.store().account.get/set()` | Account-scoped storage | Scoped storage operations |
+| `sdk.store().application.get/set()` | App-scoped storage | Scoped storage operations |
+| `sdk.store().device.get/set()` | Device-scoped storage | Scoped storage operations |
+| `sdk.store().*.subscribe()` | Subscribe to changes | Real-time updates via Bridge |
+| `sdk.media.folders.list()` | List media folders | Returns mock folders |
+| `sdk.media.content.list()` | List media content | Returns mock content |
 
 ## Build System Integration
 

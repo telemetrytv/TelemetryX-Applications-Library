@@ -7,7 +7,7 @@ This is the **TelemetryX Applications Library** - a collection of **completely i
 ## Key Context
 
 ### What is TelemetryX?
-TelemetryX is a low-code platform for digital screens that enables full-fledged applications using familiar web technologies. For detailed SDK information and API reference, see **[SDK_GUIDE.md](SDK_GUIDE.md)**.
+TelemetryX is a low-code platform for digital screens that enables full-fledged applications using familiar web technologies. For detailed SDK information and API reference, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
 
 ### Repository Purpose
 This library provides:
@@ -58,7 +58,7 @@ Each application MUST:
 
 ### Code Patterns
 
-For comprehensive SDK patterns, architecture, and code examples, refer to **[SDK_GUIDE.md](SDK_GUIDE.md)**.
+For comprehensive SDK patterns, architecture, and code examples, refer to **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
 
 
 ## Creating New Applications
@@ -140,7 +140,7 @@ applications/[app-name]/
 ```
 
 ### SDK Usage
-For detailed SDK usage patterns, data fetching, storage, and API examples, see **[SDK_GUIDE.md](SDK_GUIDE.md)**.
+For detailed SDK usage patterns, data fetching, storage, and API examples, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
 
 ### Application Routing Convention
 **Standard Mount Point Paths:**
@@ -244,7 +244,7 @@ Applications are built using modern tooling:
 
 ## SDK Features Available
 
-For comprehensive SDK features, APIs, and capabilities, see **[SDK_GUIDE.md](SDK_GUIDE.md)**.
+For comprehensive SDK features, APIs, and capabilities, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
 
 Key categories include:
 - Device capabilities and hardware integration
@@ -334,7 +334,7 @@ npm run build                  # Build the application
 
 ## Resources
 
-- **SDK Guide**: [SDK_GUIDE.md](SDK_GUIDE.md) - Comprehensive SDK documentation
+- **SDK Guide**: [SDK_GUIDE.md](docs/SDK_GUIDE.md) - Comprehensive SDK documentation
 - **Platform Documentation**: https://docs.telemetryx.ai
 - **API Reference**: https://docs.telemetryx.ai/reference/introduction
 - **Support**: Via the in app chat

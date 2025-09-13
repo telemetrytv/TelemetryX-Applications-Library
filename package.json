@@ -13,7 +13,7 @@
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
   },
   "dependencies": {
-    "@telemetryx/sdk": "^1.0.0-alpha11"
+    "@telemetryx/sdk": "^1.0.0-alpha13"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

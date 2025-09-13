@@ -18,7 +18,7 @@ export function CalendarDisplay() {
       try {
         const store = sdk.store();
         await store.application.subscribe(
-          "calendar_settings",
+          "settings",
           (newSettings: CalendarSettings | undefined) => {
             if (newSettings) {
               setSettings(newSettings);
@@ -31,11 +31,6 @@ export function CalendarDisplay() {
     };
 
     setupSubscription();
-
-    // Cleanup on unmount
-    return () => {
-      sdk.destroy();
-    };
   }, []);
 
   useEffect(() => {
@@ -51,13 +46,12 @@ export function CalendarDisplay() {
 
   const loadSettings = async () => {
     try {
-      /*const store = sdk.store();
+      const store = sdk.store();
       const storedSettings = (await store.application.get(
-        "calendar_settings"
+        "settings"
       )) as CalendarSettings | null;
-      */
-      const storedSettings = 1;
-      if (!storedSettings) {
+      
+      if (storedSettings) {
         setSettings(storedSettings);
       } else {
         // Default settings if none exist

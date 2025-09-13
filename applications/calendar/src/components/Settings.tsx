@@ -21,11 +21,6 @@ export function Settings() {
 
   useEffect(() => {
     loadSettings();
-
-    // Cleanup on unmount
-    return () => {
-      sdk.destroy();
-    };
   }, []);
 
   const loadSettings = async () => {

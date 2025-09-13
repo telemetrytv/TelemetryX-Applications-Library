@@ -4,7 +4,7 @@ import * as sdk from '@telemetryx/sdk'
 import './index.css'
 import App from './App.tsx'
 
-sdk.configure('calendar');
+sdk.configure('calendar')
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@telemetryx/sdk": "1.0.0-alpha11",
+    "@telemetryx/sdk": "1.0.0-alpha13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.544.0",

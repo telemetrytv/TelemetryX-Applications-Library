@@ -7,357 +7,389 @@ This is the **TelemetryX Applications Library** - a collection of **completely i
 ## Key Context
 
 ### What is TelemetryX?
-TelemetryX is a low-code platform for digital screens that enables full-fledged applications using familiar web technologies. For detailed SDK information and API reference, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
+TelemetryX is a low-code platform for digital screens that enables full-fledged applications using familiar web technologies. Applications run on commercial kiosk and digital signage displays that operate 24/7 in public spaces.
 
 ### Repository Purpose
-This library provides:
-1. **Independent Applications**: Starting with Hello World as the reference implementation
-2. **Development Harness**: Browser-based preview environment
-3. **Build Scripts**: Tools to build all applications independently
+This library provides a collection of ready-to-deploy applications for the TelemetryX platform. Each application is:
+- Completely independent with its own build system
+- Built using the `@telemetryx/sdk` package
+- Optimized for 24/7 operation on digital displays
+- Designed for viewing from a distance
 
-## Architecture Guidelines
+## Repository Structure
 
-### Repository Structure
 ```
-applications/          # Independent applications
-  hello-world/        # Reference implementation app
-    src/              # Source code
-    dist/             # Built output
-    package.json      # Own dependencies
-    tsconfig.json     # Own TypeScript config
-    vite.config.ts    # Own build config
-    CLAUDE.md         # App-specific AI guide
-  [future-apps]/      # Each will be fully independent
-dev-harness/          # Full-screen development preview tool
-  index.html          # Main harness interface with dual-iframe layout
-  bridge-stub.js      # TelemetryX SDK Bridge stub using @telemetryx/root-sdk
-  server.js           # Development server with WebSocket hot reload
-scripts/              # Utility scripts
+TelemetryX-Applications-Library/
+├── applications/          # Independent applications
+│   └── [app-name]/       # Each application directory
+│       ├── src/          # Source code
+│       ├── dist/         # Built output (generated)
+│       ├── package.json  # Own dependencies
+│       ├── tsconfig.json # TypeScript config
+│       ├── vite.config.ts # Build config
+│       ├── CLAUDE.md     # App-specific AI guide
+│       └── README.md     # App documentation
+├── scripts/              # Utility scripts for managing apps
+├── docs/                 # Shared documentation
+├── README.md             # This repository's main documentation
+└── CLAUDE.md            # This file - AI assistant guide
 ```
 
-### Each Application Has:
-- **Own package.json**: Independent dependencies including `@telemetryx/sdk`
-- **Own build system**: Typically Vite for fast builds
-- **Own TypeScript config**: Tailored to app needs
-- **Own documentation**: README.md and CLAUDE.md
-- **No shared dependencies**: Complete isolation
+## Application Standards
 
-## Development Environment
+### Each Application MUST Have
 
-For detailed technical documentation about the development harness, including hot reload, iframe architecture, SDK mock system, and data flow diagrams, see **[DEV_HARNESS.md](docs/DEV_HARNESS.md)**.
+1. **Complete Independence**
+   - Own `package.json` with all dependencies
+   - Own build configuration (typically Vite)
+   - Own TypeScript configuration
+   - No shared code or dependencies with other apps
 
-## Development Standards
+2. **TelemetryX SDK Integration**
+   - `@telemetryx/sdk` as a dependency
+   - Proper SDK initialization and usage
+   - Configuration via `telemetry.config.json`
 
-### Application Requirements
-Each application MUST:
-1. Be completely independent (own package.json, build system)
-2. Include `@telemetryx/sdk` as a dependency
-3. Use TypeScript 5.7+ with strict mode
-4. Suggest using React 19.1+ (or like)
-5. Build to its own dist/ directory
-6. Include comprehensive error handling for 24/7 operation
-7. Support offline fallbacks
-8. Be optimized for display from distance
-9. Support both a render and settings mount point
+3. **Production Requirements**
+   - TypeScript 5.7+ with strict mode
+   - React 19.1+ (or similar modern framework)
+   - Comprehensive error handling for 24/7 operation
+   - Offline fallback capabilities
+   - Memory leak prevention
 
-### Code Patterns
-
-For comprehensive SDK patterns, architecture, and code examples, refer to **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
-
+4. **Documentation**
+   - README.md with usage instructions
+   - CLAUDE.md for AI assistance
+   - Configuration examples
+   - Troubleshooting guide
 
 ## Creating New Applications
 
-### Steps for New Apps
-1. Create new folder in `applications/`
-2. Copy structure from hello-world app as the reference
-3. Create own `package.json` with `@telemetryx/sdk` dependency
-4. Create own `tsconfig.json` and build config
-5. Create own `CLAUDE.md` for AI assistance
-6. Implement application logic
-7. Document usage and configuration
-8. Create a `telemetry.config.json` to reference app options such as mount points
+### Directory Structure for New Apps
 
-### Required Files
 ```
 applications/[app-name]/
-  src/
-    App.tsx               # Main component
-    index.tsx             # Entry point
-    types.ts              # TypeScript types
-  dist/                   # Built output (generated)
-  docs/                   # Documentation
-  package.json            # Own dependencies (@telemetryx/sdk)
-  tsconfig.json           # Own TypeScript config
-  vite.config.ts          # Own build config
-  CLAUDE.md               # AI assistant guide
-  README.md               # App documentation
-  telemetry.config.json   # TelemetryX Application Information
-  .gitignore              # Git ignore rules
+├── src/
+│   ├── App.tsx               # Main app with React Router
+│   ├── main.tsx              # Application entry point
+│   └── views/
+│       ├── Render.tsx        # Render view component
+│       └── Settings.tsx      # Settings view component
+├── assets/                   # Static assets
+├── index.html               # HTML entry point
+├── package.json             # Dependencies including @telemetryx/sdk
+├── pnpm-lock.yaml           # Lock file
+├── pnpm-workspace.yaml      # PNPM workspace configuration
+├── tsconfig.json            # TypeScript configuration
+├── vite.config.ts           # Vite build configuration
+├── telemetry.config.json    # TelemetryX app configuration
+└── README.md                # User documentation
 ```
 
-## Application Development
+### Application Configuration
 
-### Development Workflow
-1. **Root-level harness**: `npm run dev` - Full-screen dual-iframe development environment
-2. **Individual applications**: 
-   ```bash
-   cd applications/hello-world
-   npm install
-   npm run dev    # Individual app dev server
-   npm run build  # Build for production
-   ```
-3. **Testing in harness**: Applications automatically appear in dropdown when built
-
-#### Development Harness Features
-- **Dual iframe layout**: Render view (75% width, 1080p) + Settings view (25% width)
-- **Auto-loading**: First available application loads automatically
-- **Hot reload**: WebSocket-based file watching and automatic refresh
-- **Build integration**: Build applications directly from the interface
-- **TelemetryX SDK mock**: Complete mock environment for SDK testing
-
-### Independence Requirements
-- Each app must build without any other apps
-- Each app has its own node_modules
-- Each app can be moved to separate repository
-- No shared code between applications
-- All dependencies declared in app's package.json
-
-## Application Patterns
-
-### Package.json Structure
+#### telemetry.config.json Structure
 ```json
-{
-  "name": "telemetryx-[app-name]-app",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@telemetryx/sdk": "latest",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@types/react": "^19.0.0",
-    "typescript": "^5.7.0",
-    "vite": "^5.4.0"
-  }
-}
-```
-
-### SDK Usage
-For detailed SDK usage patterns, data fetching, storage, and API examples, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
-
-### Application Routing Convention
-**Standard Mount Point Paths:**
-- **Render Route**: Always use `/index.html` for the main application display
-- **Settings Route**: Always use `/settings.html` for configuration interface
-
-```json
-// telemetry.config.json
 {
   "name": "app-name",
+  "version": "0.1.0",
   "mountPoints": {
-    "render": { "path": "/index.html" },
-    "settings": { "path": "/settings.html" }
+    "render": "/render",
+    "settings": "/settings"
+  },
+  "devServer": {
+    "runCommand": "vite --port 3000",
+    "url": "http://localhost:3000"
   }
 }
 ```
 
-This convention ensures consistency across all applications and follows web standards.
-
-### State Management
-```typescript
-// Prefer Context API for simple state
-const AppContext = createContext<AppState>({});
-
-// Use Zustand for complex state
-const useStore = create<StoreState>((set) => ({
-  data: null,
-  updateData: (data) => set({ data })
-}));
-```
-
-### Error Boundaries
-```typescript
-// Always wrap applications in error boundaries
-class AppErrorBoundary extends Component {
-  componentDidCatch(error: Error) {
-    console.error('Application error:', error);
-    // Show fallback UI
+### Package.json Template
+```json
+{
+  "name": "[app-name]",
+  "version": "0.1.0",
+  "description": "A telemetryX application",
+  "scripts": {
+    "dev": "tx serve"
+  },
+  "dependencies": {
+    "@telemetryx/sdk": "^1.0.0-alpha23",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.1"
+  },
+  "devDependencies": {
+    "@telemetryx/cli": "^1.0.0-alpha23",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
   }
 }
 ```
 
-## Performance Optimization
+## Development Workflow
 
-### Key Principles
-1. **Minimize Re-renders**: Use memo, useMemo, useCallback appropriately
-2. **Lazy Load**: Split code for features not immediately visible
-3. **Cache Aggressively**: Store API responses, computed values
-4. **Debounce Updates**: Batch rapid state changes
-5. **Optimize Images**: Use appropriate formats and sizes
+### Working with Individual Applications
 
-### Memory Management
-```typescript
-// Clean up timers and subscriptions
-useEffect(() => {
-  const timer = setInterval(updateData, 30000);
-  return () => clearInterval(timer);
-}, []);
+```bash
+# Navigate to an application
+cd applications/[app-name]
 
-// Use weak references for large objects
-const cache = new WeakMap();
+# Install dependencies
+npm install
+
+# Development with TelemetryX harness
+pnpm dev  # Runs 'tx serve'
+# TelemetryX harness opens at http://localhost:6969
+# Your app runs on http://localhost:3000
+
+# Build for production (if configured)
+pnpm run build
+
+# Type checking (if configured)
+pnpm run typecheck
 ```
 
-## Security Guidelines
+### Testing with TelemetryX Development Harness
 
-### API Keys
-- NEVER commit API keys to the repository
-- Use environment variables for development
-- Use TelemetryX secure storage in production
+Each application uses the TelemetryX CLI development harness:
+1. Navigate to your application: `cd applications/[app-name]`
+2. Start the dev server: `pnpm dev` (runs `tx serve`)
+3. The TelemetryX harness opens at http://localhost:6969
+4. Your app runs on the port specified in telemetry.config.json (default 3000)
+5. The harness provides SDK mocking, dual-view testing, and hot reload
 
-### Data Validation
+## SDK Usage Patterns
+
+### Basic SDK Initialization
 ```typescript
-// Always validate external data
-const validateApiResponse = (data: unknown): ValidData => {
-  if (!isValidSchema(data)) {
-    throw new ValidationError('Invalid data schema');
-  }
-  return data as ValidData;
+import { createClient } from '@telemetryx/sdk';
+
+const client = createClient();
+
+// Get device information
+const deviceInfo = await client.device.getInfo();
+
+// Store data
+await client.storage.application.set('key', { data: 'value' });
+
+// Subscribe to data updates
+client.data.weather.subscribe((weather) => {
+  console.log('Weather updated:', weather);
+});
+```
+
+### Error Handling Pattern
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+function AppErrorFallback({ error }: { error: Error }) {
+  return (
+    <div className="error-screen">
+      <h1>Application Error</h1>
+      <p>The application will reload in 30 seconds</p>
+    </div>
+  );
+}
+
+export function App() {
+  return (
+    <ErrorBoundary FallbackComponent={AppErrorFallback}>
+      <YourMainComponent />
+    </ErrorBoundary>
+  );
+}
+```
+
+## Design Guidelines
+
+### Display Optimization
+- **Viewing Distance**: Design for 6-10 feet viewing distance
+- **Font Sizes**: Minimum 24px for body text, 48px for headers
+- **Contrast**: High contrast ratios (WCAG AAA when possible)
+- **Animation**: Smooth, subtle animations that don't distract
+- **Layout**: Clear visual hierarchy, avoid clutter
+
+### Performance Requirements
+- **Memory**: Stay under 100MB RAM usage
+- **CPU**: Keep under 10% CPU usage when idle
+- **Updates**: Batch DOM updates, use React.memo appropriately
+- **Network**: Implement retry logic with exponential backoff
+- **Storage**: Clean up old data, implement data rotation
+
+## Common Patterns
+
+### Data Fetching with Caching
+```typescript
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+const useWeatherData = () => {
+  const [data, setData] = useState(null);
+  const [lastFetch, setLastFetch] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const now = Date.now();
+      if (now - lastFetch < CACHE_DURATION) return;
+
+      try {
+        const weather = await client.data.weather.get();
+        setData(weather);
+        setLastFetch(now);
+      } catch (error) {
+        console.error('Weather fetch failed:', error);
+        // Use cached data or show fallback
+      }
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, CACHE_DURATION);
+    return () => clearInterval(interval);
+  }, [lastFetch]);
+
+  return data;
 };
 ```
 
+### Offline Fallback
+```typescript
+const useDataWithFallback = (fetcher: () => Promise<any>, fallback: any) => {
+  const [data, setData] = useState(fallback);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isOffline) {
+      fetcher()
+        .then(setData)
+        .catch(() => setData(fallback));
+    }
+  }, [isOffline]);
+
+  return { data, isOffline };
+};
+```
+
+## Testing Guidelines
+
+### Local Testing
+1. Build the application
+2. Test with various screen sizes (1080p, 4K)
+3. Simulate network interruptions
+4. Run for extended periods (24+ hours)
+5. Monitor memory usage
+
+### Production Testing
+1. Deploy to TelemetryX staging environment
+2. Test on actual display hardware
+3. Verify remote updates work
+4. Test offline scenarios
+5. Monitor performance metrics
+
+## Security Considerations
+
+### API Keys and Secrets
+- NEVER commit API keys to the repository
+- Use environment variables for development
+- Use TelemetryX secure configuration for production
+
 ### Content Security
-- Sanitize user-generated content
-- Use CSP headers appropriately
-- Validate URLs before fetching
+- Sanitize all user-generated content
+- Validate all external data
 - Implement rate limiting for API calls
+- Use HTTPS for all external requests
 
-## Deployment Considerations
-
-### Build Configuration
-Applications are built using modern tooling:
-- ES2023 target for modern JavaScript features
-- ES Modules for tree-shaking and optimization
-- Source maps for development debugging
-
-### Development Workflow
-- Type checking with TypeScript 5.7+
-- Build with Turborepo
-- Local development harness with hot reload
-- Deployment via TelemetryX CLI or GitHub integration
-
-## SDK Features Available
-
-For comprehensive SDK features, APIs, and capabilities, see **[SDK_GUIDE.md](docs/SDK_GUIDE.md)**.
-
-Key categories include:
-- Device capabilities and hardware integration
-- Storage system with multiple scopes
-- Data integration and real-time subscriptions
-- Configuration and application lifecycle
-
-## Common Issues and Solutions
+## Troubleshooting Common Issues
 
 ### Issue: Application crashes after long runtime
-**Solution**: Implement proper cleanup in useEffect hooks, use error boundaries
+**Solution**: Check for memory leaks in useEffect hooks, ensure proper cleanup
 
-### Issue: Data updates causing flicker
-**Solution**: Use double buffering pattern, update state atomically
+### Issue: Display appears blurry or text is hard to read
+**Solution**: Increase font sizes, improve contrast, check display scaling
 
-### Issue: Poor text readability
-**Solution**: Use high contrast, appropriate font sizes, consider viewing distance
+### Issue: Network requests failing
+**Solution**: Implement retry logic, add offline fallbacks, check CORS
 
-### Issue: Network interruptions
-**Solution**: Implement offline fallbacks, cache critical data, retry logic
+### Issue: Application not updating
+**Solution**: Verify WebSocket connection, check subscription handlers
 
-## Best Practices Summary
+## Best Practices Checklist
 
-1. **Always assume 24/7 operation** - No memory leaks, proper cleanup
-2. **Design for distance viewing** - Large text, high contrast
-3. **Handle all error cases** - Network, API, hardware failures
-4. **Optimize for performance** - Lazy loading, caching, debouncing
-5. **Follow TypeScript strictly** - No `any` types, proper interfaces
-6. **Document thoroughly** - Configuration, usage, troubleshooting
-7. **Test comprehensively** - Unit, integration, performance tests
-8. **Security first** - No exposed secrets, validate all data
-9. **Use SDK features** - Don't reinvent platform capabilities
-10. **Consider offline scenarios** - Cached data, fallback content
+When developing applications:
+- [ ] TypeScript strict mode enabled
+- [ ] Error boundaries implemented
+- [ ] Offline fallbacks in place
+- [ ] Memory leaks prevented (cleanup in useEffect)
+- [ ] Font sizes optimized for distance viewing
+- [ ] High contrast colors used
+- [ ] Network retry logic implemented
+- [ ] Data caching strategy defined
+- [ ] Configuration documented
+- [ ] README.md includes usage instructions
+- [ ] Build outputs to dist/ directory
+- [ ] telemetry.config.json properly configured
 
-## TelemetryX Development Harness Bridge System
+## Quick Reference
 
-The development harness includes a complete TelemetryX SDK Bridge implementation (`bridge-stub.js`) using the official `@telemetryx/root-sdk` that provides:
-
-### Mock Features
-- **Device Information**: Mock device capabilities, location, display specs
-- **Data APIs**: Simulated data fetching for weather, calendar, RSS, social media
-- **Storage System**: Local storage-based mock for application data
-- **Real-time Updates**: WebSocket-based data subscription system
-- **Message Bridge**: PostMessage API for iframe communication
-
-### Mock Data Available
-- **Device Info**: Location (San Francisco), display (1920x1080), capabilities
-- **Weather Data**: Current conditions, 3-day forecast, alerts
-- **Calendar Events**: Sample meetings and appointments
-- **RSS Feeds**: Mock news feed data
-- **Social Media**: Sample social media posts
-
-### SDK Bridge Communication
-The harness uses the official `@telemetryx/root-sdk` Bridge class to:
-1. Create a Bridge instance that handles client-server communication
-2. Provide mock responses to all SDK client messages via onMessage handler
-3. Support data subscriptions with real-time updates
-4. Handle storage operations with scoped stores (account, application, device)
-5. Manage media folders and content operations
-6. Log all SDK interactions for debugging
-
-This allows applications using `@telemetryx/sdk` to be developed and tested with the same Bridge protocol used in production TelemetryX environments.
-
-## Quick Commands
-
-### Repository Level
+### Essential Commands
 ```bash
-npm run dev                    # Start development harness
-npm run build:all              # Build all applications independently
-npm run app:placeholders       # Create placeholder HTML files
+# Create a new application
+tx init
+
+# Build all applications
+pnpm run build:all
+
+# Create placeholder files
+pnpm run app:placeholders
+
+# Individual app development
+cd applications/[app-name]
+pnpm install
+pnpm dev  # Runs 'tx serve', harness at localhost:6969
+pnpm run build  # If build script is configured
 ```
 
-### Application Level
-```bash
-cd applications/hello-world    # Navigate to app
-npm install                    # Install app dependencies
-npm run dev                    # Start app dev server
-npm run build                  # Build app for production
-npm run typecheck              # TypeScript validation
+### SDK Quick Reference
+```typescript
+// Client initialization
+import { createClient } from '@telemetryx/sdk';
+const client = createClient();
+
+// Common APIs
+await client.device.getInfo();
+await client.storage.application.set(key, value);
+await client.data.weather.get();
+client.data.calendar.subscribe(callback);
 ```
 
-### Deployment
-```bash
-cd applications/hello-world
-npm run build                  # Build the application
-# Deploy dist/ folder to TelemetryX
-```
+### File Paths Convention
+- Render mount: `/index.html`
+- Settings mount: `/settings.html`
+- Assets: `/assets/[...]`
 
 ## Resources
 
-- **SDK Guide**: [SDK_GUIDE.md](docs/SDK_GUIDE.md) - Comprehensive SDK documentation
-- **Platform Documentation**: https://docs.telemetryx.ai
-- **API Reference**: https://docs.telemetryx.ai/reference/introduction
-- **Support**: Via the in app chat
-
-## Contributing Checklist
-
-When contributing to this repository:
-- [ ] Follow TypeScript strict mode
-- [ ] Include comprehensive error handling
-- [ ] Add offline fallbacks
-- [ ] Write tests for new features
-- [ ] Update documentation
-- [ ] Consider 24/7 operation requirements
-- [ ] Optimize for digital display viewing
-- [ ] Follow security best practices
-- [ ] Use existing SDK features
-- [ ] Include configuration schema
+- **TelemetryX Documentation**: https://docs.telemetryx.ai
+- **SDK Reference**: Available via @telemetryx/sdk package
+- **Support**: Via in-app chat in TelemetryX dashboard
 
 ---
 
-**Remember**: Applications in this library run on commercial kiosk and digital signage displays that operate 24/7 in public spaces. Reliability, performance, and user experience are critical.
+**Remember**: Every application in this library should be production-ready for 24/7 operation on commercial displays. Reliability, performance, and user experience are critical.

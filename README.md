@@ -1,330 +1,377 @@
 # TelemetryX Applications Library
 
-<div align="center">
-  
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
-[![Node](https://img.shields.io/badge/Node-22.0+-green.svg)](https://nodejs.org/)
-[![TelemetryX SDK](https://img.shields.io/badge/TelemetryX%20SDK-Compatible-orange.svg)](https://telemetryx.ai)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-**Collection of independent applications for TelemetryX digital signage platform**
-
-[Applications](applications/) | [Development](#development) | [Contributing](CONTRIBUTING.md)
-
-</div>
-
----
+A collection of production-ready applications for the TelemetryX digital signage platform.
 
 ## Overview
 
-The **TelemetryX Applications Library** is a collection of **completely independent** applications for the TelemetryX platform - a low-code platform that enables full-fledged applications on digital screens using familiar web technologies.
-
-Each application:
-- Is completely standalone with its own `package.json`, build system, and dependencies
-- Uses the TelemetryX SDK (`@telemetryx/sdk`) for device capabilities and data integration
-- Can be developed, built, and deployed independently
-- Has its own documentation and configuration
-
-### Key Principles
-
-- **Complete Independence**: Each app is a standalone project
-- **No Shared Code**: Applications don't depend on each other
-- **Own Dependencies**: Each app manages its own packages
-- **SDK Integration**: All apps use `@telemetryx/sdk`
-- **Development Harness**: Test all apps in one place
-
-## Applications Catalog
-
-### Current Applications
-
-| Application | Description | Status | Use Cases |
-|------------|-------------|---------|-----------|
-| **[Hello World](applications/hello-world)** | Reference implementation demonstrating SDK integration and best practices | ✅ Production | Template, Learning, Development |
-
-### Planned Applications
-
-| Application | Description | Status | Use Cases |
-|------------|-------------|---------|-----------|
-| **Weather** | Dynamic weather displays with forecasts and alerts | 📋 Planned | Retail, Corporate, Public Spaces |
-| **YouTube** | Video player with playlist management | 📋 Planned | Retail, Waiting Rooms |
-| **RSS Feed** | News and content aggregator | 📋 Planned | Corporate, Healthcare |
-| **Slack** | Team communication dashboard | 📋 Planned | Corporate, Tech Companies |
-| **Clock** | World clocks with timezone support | 📋 Planned | Corporate, Transportation |
-| **Calendar** | Event display with integrations | 📋 Planned | Meeting Rooms, Education |
-
+This repository contains independent applications built for TelemetryX, a low-code platform for commercial digital displays. Each application is completely standalone with its own dependencies, build system, and configuration.
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js 22+ and npm 10+
-- TelemetryX SDK access (each app includes `@telemetryx/sdk`)
+- Node.js 21+ and pnpm (or npm)
+- TelemetryX CLI for development and testing
 
-### Repository Setup
+### Install TelemetryX CLI
+
+```bash
+# Install globally with pnpm
+pnpm add -g @telemetryx/cli
+
+# Or with npm
+npm install -g @telemetryx/cli
+```
+
+### Create a New Application
+
+```bash
+# Generate a new TelemetryX application
+tx init
+
+# Follow the prompts to:
+# - Choose application name
+# - Select template (creates a barebones hello world)
+# - Configure mount points
+# The CLI will create a complete application structure
+```
+
+### Development Workflow
 
 ```bash
 # Clone the repository
-git clone https://github.com/TelemetryTV/telemetryx-applications-library.git
-cd telemetryx-applications-library
+git clone [repository-url]
+cd TelemetryX-Applications-Library
 
-# Install dev harness dependencies only
-npm install
+# Navigate to an application
+cd applications/[app-name]
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev  # Runs 'tx serve'
+# The TelemetryX harness opens automatically at http://localhost:6969
+# Your app runs on http://localhost:3000 (configured in telemetry.config.json)
+
+# Build for production (if build scripts are configured)
+pnpm run build
 ```
 
-### Individual Application Setup
+## Repository Structure
+
+```
+TelemetryX-Applications-Library/
+├── applications/           # Independent applications
+│   └── [app-name]/        # Each app is completely standalone
+│       ├── src/           # Source code
+│       ├── dist/          # Built output
+│       ├── package.json   # App dependencies
+│       └── README.md      # App documentation
+├── scripts/               # Repository utility scripts
+└── docs/                  # Shared documentation
+```
+
+## Available Applications
+
+Each application in the `applications/` directory is production-ready and includes:
+
+- Full TypeScript support with strict mode
+- React 19.1+ with modern hooks
+- TelemetryX SDK integration
+- Error boundaries for 24/7 operation
+- Offline fallback capabilities
+- Optimized for distance viewing
+
+## Creating New Applications
+
+### Using TelemetryX CLI (Recommended)
+
+The easiest way to create a new application:
 
 ```bash
-# Navigate to any application
-cd applications/weather
+# From the applications directory
+cd applications/
+tx init
 
-# Install application dependencies (including @telemetryx/sdk)
-npm install
+# The CLI will:
+# - Create a barebones hello world application
+# - Set up mount points
+# - Install dependencies
+# - Configure the development harness
 
-# Start development
-npm run dev
+# Then run the app:
+cd [your-app-name]
+pnpm dev
+# Open http://localhost:6969 in your browser
 ```
 
-### Development
+### Manual Creation
 
-```bash
-# Start development harness (preview applications in browser)
-npm run dev
-
-# Build all applications independently
-npm run build:all
-
-# Generate placeholder HTML files
-npm run app:placeholders
-```
-
-For individual applications:
-```bash
-cd applications/hello-world
-npm install
-npm run dev    # Start dev server
-npm run build  # Build for production
-```
-
-### Development Harness
-
-The repository includes a full-screen development harness for testing applications locally:
-
-1. Start the dev server: `npm run dev`
-2. Open http://localhost:3000 in your browser
-3. Select an application from the dropdown (automatically loads first available app)
-4. View render and settings interfaces side-by-side
-5. Hot reload on file changes
-
-The harness provides:
-- **Dual iframe layout**: Render iframe (3/4 width, 1080p aspect ratio) and Settings iframe (1/4 width, full height)
-- **Automatic application loading**: Dropdown automatically loads the selected application
-- **Build integration**: Build applications directly from the harness interface
-- **WebSocket-based hot reload**: Automatic refresh when files change
-- **TelemetryX SDK integration**: Mock TelemetryX environment for development and testing
-
-#### Harness Layout
-- **Left panel (75% width)**: Main application render view at 1080p aspect ratio
-- **Right panel (25% width)**: Application settings interface
-- **Top header**: Application selector, reload/build controls, and connection status
-
-## Architecture
-
-### Repository Structure
+If creating manually, each application must include:
 
 ```
-telemetryx-applications-library/
-├── applications/              # Independent applications
-│   ├── weather/              
-│   │   ├── src/              # Source code
-│   │   ├── dist/             # Built application
-│   │   ├── docs/             # App documentation
-│   │   ├── package.json      # Own dependencies
-│   │   ├── tsconfig.json     # Own TypeScript config
-│   │   ├── vite.config.ts    # Own build config
-│   │   ├── CLAUDE.md         # AI assistant guide
-│   │   └── README.md         # App documentation
-│   └── [other-apps]/         # Each with same structure
-│
-├── dev-harness/              # Development preview tool
-│   └── index.html           # Browser-based app preview
-│
-├── scripts/                  # Utility scripts
-│   ├── build-all-apps.js    # Build all apps independently
-│   └── create-placeholder.js # Generate placeholder HTMLs
-│
-└── dev-server.js            # Development server for testing
+applications/your-app/
+├── src/
+│   ├── App.tsx              # Main app with router
+│   ├── main.tsx             # App entry point
+│   └── views/
+│       ├── Render.tsx       # Render view component
+│       └── Settings.tsx     # Settings view component
+├── assets/                  # Static assets
+├── index.html              # HTML entry point
+├── package.json            # Dependencies
+├── tsconfig.json           # TypeScript config
+├── vite.config.ts          # Vite configuration
+├── telemetry.config.json   # TelemetryX configuration
+└── pnpm-workspace.yaml     # PNPM workspace config
 ```
 
-### Technology Stack
-
-Each application uses:
-- **Runtime**: Node.js 22+ LTS
-- **Language**: TypeScript 5.7+ with strict mode
-- **Build Tool**: Vite for fast builds
-- **Framework**: React 19+
-- **Module System**: ES Modules (ESM)
-- **TelemetryX SDK**: `@telemetryx/sdk` for platform integration
-
-### Application Independence
-
-Each application:
-- Has its own `package.json` with `@telemetryx/sdk` dependency
-- Has its own `tsconfig.json` for TypeScript configuration
-- Has its own build configuration (typically `vite.config.ts`)
-- Has its own `CLAUDE.md` for AI assistance
-- Has its own documentation in `README.md`
-- Builds to its own `dist/` directory
-- Can be moved to a separate repository without changes
-
-## TelemetryX SDK Usage
-
-Each application includes `@telemetryx/sdk` as a dependency. For comprehensive SDK documentation, API reference, and usage examples, see **[SDK_GUIDE.md](SDK_GUIDE.md)**.
+### Package Configuration
 
 ```json
-// In each app's package.json
-"dependencies": {
-  "@telemetryx/sdk": "latest",
-  "react": "^19.1.0",
-  "react-dom": "^19.1.0"
+{
+  "name": "your-app",
+  "version": "0.1.0",
+  "description": "A telemetryX application",
+  "scripts": {
+    "dev": "tx serve"
+  },
+  "dependencies": {
+    "@telemetryx/sdk": "^1.0.0-alpha23",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.1"
+  },
+  "devDependencies": {
+    "@telemetryx/cli": "^1.0.0-alpha23",
+    "@types/react": "^19.1.12",
+    "@vitejs/plugin-react": "^5.0.2",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
 }
 ```
 
-## Working with Applications
+### TelemetryX Configuration
 
-### Building a Single Application
+Create a `telemetry.config.json` file:
 
-```bash
-cd applications/weather
-npm install  # Installs @telemetryx/sdk and other deps
-npm run build
-# Output is in applications/weather/dist/
+```json
+{
+  "name": "your-app",
+  "version": "0.1.0",
+  "mountPoints": {
+    "render": "/render",
+    "settings": "/settings"
+  },
+  "devServer": {
+    "runCommand": "vite --port 3000",
+    "url": "http://localhost:3000"
+  }
+}
 ```
 
-### Building All Applications
+## Testing Applications
+
+### Development Server
+
+Each application includes a built-in development harness:
 
 ```bash
-# From repository root
-npm run build:all
-# Each app builds to its own dist/ folder
+# From your application directory
+cd applications/[app-name]
+
+# Start the development server
+pnpm dev  # Runs 'tx serve'
+
+# The TelemetryX harness opens at:
+# http://localhost:6969
 ```
 
-### Creating a New Application
+### Development Features
 
-1. Create a new folder in `applications/`
-2. Copy structure from an existing app
-3. Update `package.json` with app details
-4. Ensure `@telemetryx/sdk` is in dependencies
-5. Build and test independently
+The `pnpm dev` command provides:
+- **Built-in Harness**: Complete TelemetryX development environment
+- **Dual View**: See both render and settings interfaces
+- **SDK Mocking**: Complete TelemetryX SDK simulation
+- **Hot Reload**: Automatic refresh on file changes
+- **Device Simulation**: Test different screen sizes and capabilities
+- **Mock Data**: Weather, calendar, RSS, and social media data
+
+## SDK Integration
+
+Applications use the `@telemetryx/sdk` package to interact with the platform:
+
+```typescript
+import { createClient } from '@telemetryx/sdk';
+
+const client = createClient();
+
+// Device information
+const info = await client.device.getInfo();
+
+// Storage
+await client.storage.application.set('key', value);
+
+// Data subscriptions
+client.data.weather.subscribe((weather) => {
+  console.log('Weather updated:', weather);
+});
+```
+
+## Design Guidelines
+
+### Display Optimization
+- **Font sizes**: Minimum 24px body, 48px headers
+- **Viewing distance**: Optimized for 6-10 feet
+- **Contrast**: High contrast for visibility
+- **Layout**: Clear hierarchy, minimal clutter
+
+### Performance Requirements
+- **Memory**: Under 100MB RAM usage
+- **CPU**: Under 10% when idle
+- **Network**: Implement retry logic
+- **Storage**: Rotate old data
+
+## Production Considerations
+
+### Error Handling
+All applications must include comprehensive error handling:
+
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+function ErrorFallback({ error }) {
+  return (
+    <div className="error-screen">
+      <h1>Application Error</h1>
+      <p>Reloading in 30 seconds...</p>
+    </div>
+  );
+}
+
+export function App() {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <YourApp />
+    </ErrorBoundary>
+  );
+}
+```
+
+### Offline Support
+Applications should work offline with cached data:
+
+```typescript
+const useOfflineData = (fetcher, fallback) => {
+  const [data, setData] = useState(fallback);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    if (!isOffline) {
+      fetcher().then(setData).catch(() => setData(fallback));
+    }
+  }, [isOffline]);
+
+  return { data, isOffline };
+};
+```
+
+## Repository Scripts
+
+### Root Level Scripts
+
+```bash
+# Build all applications
+pnpm run build:all
+
+# Create placeholder HTML files for apps
+pnpm run app:placeholders
+```
+
+### Application Level Scripts
+
+```bash
+# From an application directory
+pnpm dev          # Runs 'tx serve' - starts harness at localhost:6969
+pnpm run build    # Build for production (if configured)
+pnpm run preview  # Preview production build (if configured)
+```
 
 ## Deployment
 
-### To TelemetryX Cloud
+### Using TelemetryX CLI
 
-1. Build your application:
 ```bash
-cd applications/weather && npm run build
+# Build your application
+cd applications/[app-name]
+pnpm run build
+
+# Deploy to TelemetryX
+tx deploy
+
+# The CLI will handle:
+# - Authentication
+# - Upload to TelemetryX cloud
+# - Version management
+# - Rollback capabilities
 ```
 
-2. Deploy via TelemetryX CLI:
-```bash
-telemetryx deploy applications/weather/dist
-```
+### CI/CD Integration
 
-3. Or use CI/CD integration:
+For automated deployments:
+
 ```yaml
 # .github/workflows/deploy.yml
+- name: Install TelemetryX CLI
+  run: pnpm add -g @telemetryx/cli
+
+- name: Build Application
+  run: pnpm run build
+  working-directory: applications/your-app
+
 - name: Deploy to TelemetryX
-  uses: telemetrytv/deploy-action@v1
-  with:
-    app-path: applications/weather/dist
-    api-key: ${{ secrets.TELEMETRYX_API_KEY }}
+  run: tx deploy
+  env:
+    TELEMETRYX_API_KEY: ${{ secrets.TELEMETRYX_API_KEY }}
 ```
-
-### Local Development
-
-```bash
-# Start development harness
-npm run dev
-
-# Open http://localhost:3000
-# Select application from dropdown
-# Preview with hot reload
-```
-
-## Development Guidelines
-
-### Requirements
-- TypeScript strict mode
-- Error handling for 24/7 operation
-- Memory leak prevention
-- Offline fallbacks
-
-### Design Considerations
-- Optimize for viewing distance
-- High contrast for visibility
-- Responsive layouts
-- Smooth animations
-
-### Security
-- No hardcoded API keys
-- Input validation
-- Secure data storage
-- Rate limiting
 
 ## Contributing
 
-We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details on:
-- Code of conduct
-- Development workflow
-- Submitting pull requests
-- Reporting issues
+When contributing applications:
 
-### Development Setup
+1. **Independence**: Each app must be completely standalone
+2. **Quality**: Production-ready for 24/7 operation
+3. **Documentation**: Include README and configuration examples
+4. **Testing**: Test with `tx dev` before submission
+5. **Performance**: Optimize for long-running displays
+6. **Accessibility**: High contrast, large text for distance viewing
 
-```bash
-# Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/telemetryx-applications-library.git
+## Best Practices
 
-# Install dependencies
-npm install
-
-# Start development harness
-npm run dev
-
-# Type check your changes
-npm run typecheck
-```
-
-## Community
-
-- **GitHub**: [github.com/TelemetryTV](https://github.com/TelemetryTV)
-- **Website**: [telemetryx.ai](https://telemetryx.ai)
-
-## Resources
-
-- [SDK Guide](SDK_GUIDE.md) - Comprehensive SDK documentation for LLMs
-- [TelemetryX Documentation](https://docs.telemetryx.ai)
-- [SDK Reference](https://sdk.telemetryx.ai)
-- [Application Guidelines](docs/)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- ✅ Use TypeScript strict mode
+- ✅ Implement error boundaries
+- ✅ Include offline fallbacks
+- ✅ Prevent memory leaks
+- ✅ Optimize for distance viewing
+- ✅ Use high contrast colors
+- ✅ Implement retry logic
+- ✅ Cache data appropriately
+- ✅ Document configuration
+- ✅ Test for 24+ hour operation
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/TelemetryTV/telemetryx-applications-library/issues)
-- **Email**: developers@telemetryx.ai
+- **Documentation**: https://docs.telemetryx.ai
+- **SDK Reference**: Included with `@telemetryx/sdk`
+- **CLI Help**: `tx --help`
+- **Support**: Via TelemetryX dashboard chat
 
-## Acknowledgments
+## License
 
-Built by the TelemetryX team and contributors.
+See LICENSE file in the repository root.
 
 ---
 
-<div align="center">
-
-**[TelemetryX](https://telemetryx.ai)** - Transform Screens into Application Platforms
-
-</div>
+**Note**: Applications in this library are designed for commercial digital signage displays that operate continuously. Reliability and performance are critical.

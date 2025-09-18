@@ -1,0 +1,142 @@
+# TelemetryX Applications Library .gitignore
+
+# Operating System Files
+# -----------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE and Editor Files
+# --------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+.history/
+
+# Node.js and Package Managers
+# ----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+.pnpm-store/
+
+# Build Outputs
+# -------------
+dist/
+dist-ssr/
+build/
+out/
+*.local
+
+# Environment Variables
+# --------------------
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+!.env.example
+
+# Logs
+# ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+# -------
+coverage/
+*.lcov
+.nyc_output/
+
+# TypeScript
+# ----------
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Vite
+# ----
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# TelemetryX Specific
+# ------------------
+# Application-specific builds (each app manages its own dist/)
+applications/*/dist/
+applications/*/build/
+applications/*/.parcel-cache/
+
+# Application-specific dependencies (each app is independent)
+applications/*/node_modules/
+
+# Application-specific environment files
+applications/*/.env
+applications/*/.env.local
+applications/*/.env.*.local
+
+# Application-specific logs
+applications/*/logs/
+applications/*/*.log
+
+# Application-specific coverage
+applications/*/coverage/
+
+# Lock files at app level (each app manages its own)
+# Root level lock files are committed for scripts
+applications/*/package-lock.json
+applications/*/yarn.lock
+# Note: pnpm-lock.yaml files are typically committed
+
+# Temporary Files
+# --------------
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+.turbo/
+.vercel/
+.next/
+
+# Miscellaneous
+# ------------
+*.bak
+*.backup
+*.old
+.history/
+.claude/
+*.pid
+*.seed
+*.pid.lock
+
+# Archives
+# --------
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Debug Files
+# ----------
+chrome-debug.log

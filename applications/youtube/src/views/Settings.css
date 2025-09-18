@@ -1,0 +1,57 @@
+.settings {
+  padding: 1.4rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.form-field-label {
+  font-size: 1.225rem;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+.form-field-frame {
+  display: flex;
+  border: 0.1rem solid rgb(100, 100, 100);
+  border-radius: 0.4rem;
+  background: rgb(30, 37, 43);
+  color: rgb(212, 212, 212);
+}
+
+.form-field-input {
+  flex: 1;
+  font-size: 1.4rem;
+  line-height: 1em;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: rgb(212, 212, 212);
+  outline: none;
+}
+
+.form-field-input.error {
+  border: 0.1rem solid rgb(239, 68, 68);
+}
+
+.form-field-input.success {
+  border: 0.1rem solid rgb(34, 197, 94);
+}
+
+.validation-error {
+  font-size: 1.2rem;
+  color: rgb(239, 68, 68);
+  margin-top: 0.4rem;
+  padding-left: 0.4rem;
+}
+
+.validation-success {
+  font-size: 1.2rem;
+  color: rgb(34, 197, 94);
+  margin-top: 0.4rem;
+  padding-left: 0.4rem;
+}
